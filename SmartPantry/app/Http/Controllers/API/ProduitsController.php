@@ -24,30 +24,25 @@ class ProduitsController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'Name' => 'required | unique:produits',
-            'quantity' => 'required | integer',
-            'price' => 'required | float',
-            "addedDate" => 'required | date',
-            'expirationDate' => 'required | date',
-            'unitWeight' => 'required | float',
-            'thumbnail' => 'required',
-        ]);
-
-        $produits = Produit::create([
-            'Name' => $request->input('Name'),
-            'quantity' => $request->input('quantity'),
-            'price' => $request->input('price'),
-            'addedDate' => $request->input('addedDate'),
-            'expirationDate' => $request->input('expirationDate'),
-            'unitWeight' => $request->input('unitWeight'),
-            'thumbnail' => $request->input('thumbnail'),
-        ]);
-
-        $thumbnail = $request->file('thumbnail');
-        $request->file('thumbnail')->move('public', $thumbnail);
-
-        return response()->json($produits, 201);
+        try {
+            $validated = $request->validate([
+                'Name' => 'required|unique:produits',
+                'quantity' => 'required|numeric',
+                'unit' => 'required|string',
+            ]);
+    
+            $produits = Produit::create([
+                'Name' => $request->input('Name'),
+                'quantity' => $request->input('quantity'),
+                'Unit' => $request->input('unit'),
+            ]);
+            $userId = 1 ;
+            $produits->users()->attach($userId);
+            return response()->json($produits, 201);
+    
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
+        }
     }
 
     public function update(Request $request, Produit $produits)

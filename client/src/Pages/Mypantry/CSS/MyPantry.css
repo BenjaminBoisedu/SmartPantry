@@ -1,0 +1,71 @@
+* {
+    padding: 0%;
+    margin: 0%;
+}
+
+body {
+    background-color: #f4f4f4;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    overflow: visible
+
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #754F31;
+    margin-bottom: 1rem;
+}
+
+.searchResult {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ingredientCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bolder;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 20%;
+    height: 300px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pendingCard {
+    display: flex;
+    flex-direction:row  ;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bolder;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: 1px solid #754F31;
+    margin-bottom: 1rem;
+}   

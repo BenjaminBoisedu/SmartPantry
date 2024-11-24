@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Produit extends Model
@@ -22,13 +20,14 @@ class Produit extends Model
         'Unit',
     ];
 
-    public function category(): BelongsTo
+    public function category()
     {
-        return $this->belongsTo(Categorie::class, 'id');
+        return $this->belongsTo(Categorie::class, 'categorie_id');
     }
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'id');
+        return $this->belongsToMany(User::class, 'produit_user', 'produit_id', 'user_id')
+            ->withPivot('Date_Ajout', 'Date_Expiration');  // Inclure les colonnes pivot si nécessaire
     }
 }
