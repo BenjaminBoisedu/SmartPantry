@@ -39,18 +39,22 @@ DB_PASSWORD=root (mac)// or empty (windows)
 
 6. Créer la base de données dans phpMyAdmin => API_SmartPantry
 
-7. Créer la base de données => php artisan migrate
+7. Si votre commande php ne fonctionne pas et que vous êtes sous Windows, ajouter le chemin de php dans les variables d'environnement de Windows
 
-8. Seeder la base de données => php artisan db:seed --class=ProduitSeeder && php artisan db:seed --class=DatabaseSeeder
+8. Ajouter le chemin de php dans le $PATH :C:\xampp\php\php.exe
 
-9. Lancer le serveur => php artisan serve
+9. Créer la base de données => php artisan migrate
 
-10. Ouvrir un autre terminal
+10. Seeder la base de données => php artisan db:seed --class=ProduitSeeder && php artisan db:seed --class=DatabaseSeeder
 
-11. Aller dans le dossier client => cd client
+11. Lancer le serveur => php artisan serve
 
-12. Installer les dépendances => npm install
+12. Ouvrir un autre terminal
 
-13. Lancer le serveur => npm run dev
+13. Aller dans le dossier client => cd client
 
-14. Ouvrir le navigateur et aller à l'adresse http://localhost:3000
+14. Installer les dépendances => npm install
+
+15. Lancer le serveur => npm run dev
+
+16. Ouvrir le navigateur et aller à l'adresse http://localhost:3000
