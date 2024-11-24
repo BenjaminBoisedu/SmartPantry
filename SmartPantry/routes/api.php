@@ -17,8 +17,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
 // Update password route
-Route::middleware('auth-sanctum')->group(function () {
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('user/delete', [AuthController::class, 'delete']);
-    Route::post('user/updatePasword', [AuthController::class, 'UpdatePassword']);
-});
+
+Route::post('logout', [AuthController::class, 'logout']);
+Route::delete('user/delete', [AuthController::class, 'delete']);
+Route::post('user/updatePassword', [AuthController::class, 'UpdatePassword']);
