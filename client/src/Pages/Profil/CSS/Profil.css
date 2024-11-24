@@ -8,9 +8,17 @@
 
 body {
     height: 100vh;
-    background-color: #f4f4f4;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
+}
+
+.profil {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #f9f7f5;
+
 }
 
 .containerProfil {
@@ -35,11 +43,12 @@ body {
     justify-content: center;
     align-items: center;
     background-color: white;
-    border-radius: 50%;
+    border-radius: 1.125em;
     overflow: hidden;
     width: 100px;
     height: 100px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 0.5em 0.5em 0;
 }
 
 .containerProfil .userPhotos img {
@@ -65,6 +74,13 @@ body {
     color: #666;
 }
 
+.UserOptions {
+    margin-bottom: 2em;
+    padding-top: 1em;
+    border-top: 1px solid #252322;
+    border-width: 1px;
+}
+
 .optionContainer {
     display: flex;
     flex-direction: column;
@@ -73,7 +89,7 @@ body {
     padding: 0 20px;
 }
 
-.optionContainer div {
+.optionContainer>div {
     display: flex;
     justify-content: space-between;
     align-items: center;

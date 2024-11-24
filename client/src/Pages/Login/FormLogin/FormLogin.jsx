@@ -24,6 +24,8 @@ export default function FormLogin() {
       });
       if (response.data) {
         localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
         setTimeout(() => {
           gsap.fromTo(
             ".transition",

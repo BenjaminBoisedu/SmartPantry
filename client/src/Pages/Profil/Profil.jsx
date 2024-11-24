@@ -12,20 +12,26 @@ export default function Profil() {
   }, []);
 
   return (
-    <div className="containerProfil">
-      <div className="profilTitle">Profil</div>
-      <div className="userPhotos">
-        <img
-          src={profilImg}
-          alt="Profil"
-          draggable="false"
-          onContextMenu={(e) => e.preventDefault()}
-        />
+    <>
+      <div className="profil">
+        <div className="containerProfil">
+          <div className="profilTitle">Profil</div>
+          <div className="userPhotos">
+            <img
+              src={profilImg}
+              alt="Profil"
+              draggable="false"
+              onContextMenu={(e) => e.preventDefault()}
+            />
+          </div>
+          <div className="userInfo">
+            <h1>{name}</h1>
+          </div>
+        </div>
+        <div className="UserOptions">
+          <ProfileOption />
+        </div>
       </div>
-      <div className="userInfo">
-        <h1>{name}</h1>
-      </div>
-      <ProfileOption />
-    </div>
+    </>
   );
 }
