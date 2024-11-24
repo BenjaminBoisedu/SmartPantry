@@ -67,7 +67,7 @@ export default function FormRegister() {
               },
             }
           );
-        }, 500);
+        }, 200);
       }
     } catch (error) {
       if (email === "" || password === "" || Name === "") {

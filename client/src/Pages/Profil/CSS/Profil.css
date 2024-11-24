@@ -13,7 +13,7 @@ body {
 }
 
 .profil {
-    height: 100vh;
+    height: 94vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
