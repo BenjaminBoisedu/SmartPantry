@@ -20,6 +20,15 @@ body {
 
 }
 
+.profil {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #f9f7f5;
+
+}
+
 .containerProfil {
     display: flex;
     flex-direction: column;
