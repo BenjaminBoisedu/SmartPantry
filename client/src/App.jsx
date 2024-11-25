@@ -18,24 +18,30 @@ const PrivateRoute = ({ children }) => {
 
 export default function App() {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <PrivateRoute>
-            <Home />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/profil"
-        element={
-          <PrivateRoute>
-            <Profil />
-          </PrivateRoute>
-        }
-      />
-      <Route path="/login" element={<Login />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Header />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profil"
+          element={
+            <PrivateRoute>
+              <Profil />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+      <Footer />
+    </>
   );
 }
