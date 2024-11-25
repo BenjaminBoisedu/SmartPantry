@@ -26,22 +26,10 @@ export default function App() {
       </Routes>
       <Nav />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/profil"
-          element={
-            <PrivateRoute>
-              <Profil />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>}/>
+        <Route path="/profil" element={<PrivateRoute><Profil /></PrivateRoute>}/>
+        <Route path="/recipeProposition" element={<RecipeProposition />} />
+      <Route path="/recipePage/:id" element={<RecipePage />} />
       </Routes>
       <Footer />
     </>
