@@ -53,6 +53,11 @@
     margin-top: 5vh;
     margin-bottom: 5vh;
   }
+
+  #nombrePersonne{
+    margin-left: 5vw;
+    color: #754F31;
+  }
   
   .ingredients-list {
       display: flex;
@@ -84,6 +89,7 @@
       overflow: hidden;
       text-overflow: ellipsis; 
       white-space: nowrap; 
+      color: black;
     }
     
   
