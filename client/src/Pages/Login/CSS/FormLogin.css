@@ -7,10 +7,8 @@
 }
 
 body {
-    height: 100vh;
     background-color: #f4f4f4;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden;
 }
 
 
@@ -21,6 +19,12 @@ body {
     align-items: center;
     height: 100%;
     width: 100%;
+}
+
+.ContainerLogin p#error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
 }
 
 .ContainerLogin .login {

@@ -15,3 +15,9 @@ Route::apiResource('produits', ProduitsController::class);
 Route::post('login', [AuthController::class, 'login']);
 // Register route
 Route::post('register', [AuthController::class, 'register']);
+
+// Update password route
+
+Route::post('logout', [AuthController::class, 'logout']);
+Route::delete('user/delete', [AuthController::class, 'delete']);
+Route::post('user/updatePassword', [AuthController::class, 'UpdatePassword']);

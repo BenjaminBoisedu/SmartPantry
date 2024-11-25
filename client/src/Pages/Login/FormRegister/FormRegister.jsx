@@ -67,16 +67,17 @@ export default function FormRegister() {
               },
             }
           );
-        }, 500);
+        }, 200);
       }
     } catch (error) {
-      console.error(error);
-      // display error message
       if (email === "" || password === "" || Name === "") {
         alert("Please fill in all fields");
       }
-      // clear the form
-      e.target.reset();
+      if (error.response.status === 409) {
+        const errorDiv = document.getElementById("error");
+        errorDiv.innerText =
+          "Ils me semble que vous êtes déjà inscrit, souhaitez-vous vous connecter?";
+      }
     }
   };
 
@@ -101,6 +102,9 @@ export default function FormRegister() {
         <p>You have successfully registered!</p>
       </div>
       <h1>Join the Brigade</h1>
+      <div className="returnError">
+        <p id="error"></p>
+      </div>
       <form action="" method="POST" onSubmit={handleSubmit}>
         <div className="InputContainer">
           <label htmlFor="Name">Name</label>

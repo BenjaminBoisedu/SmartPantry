@@ -24,6 +24,8 @@ export default function FormLogin() {
       });
       if (response.data) {
         localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
         setTimeout(() => {
           gsap.fromTo(
             ".transition",
@@ -54,7 +56,8 @@ export default function FormLogin() {
       }
     } catch (error) {
       alert("Identifiants incorrects");
-      e.target.reset();
+      const errorDiv = document.getElementById("error");
+      errorDiv.innerText = "Identifiants incorrects";
     }
   };
 
@@ -80,6 +83,9 @@ export default function FormLogin() {
       </div>
       <div className="LoginTextContainer">
         <h1>Connexion</h1>
+        <div className="returnError">
+          <p id="error"></p>
+        </div>
         <form action="" method="POST" onSubmit={handleSubmit} id="FormLogin">
           <div className="InputContainer">
             <label htmlFor="email">Email:</label>
