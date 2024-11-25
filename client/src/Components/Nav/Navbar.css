@@ -12,4 +12,21 @@
     display: inline;
     padding: 0 10px;
     font-size: small;
+    color: #754F31;
+}
+
+.Nav li a {
+    text-decoration: none;
+    color: #754F31;
+}
+
+.Nav li.profilLinks {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 2px solid #754F31;
+}
+
+.Nav li.profilLinks a {
+    color: #754F31;
+    text-decoration: none;
 }

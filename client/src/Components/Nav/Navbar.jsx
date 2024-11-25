@@ -16,10 +16,13 @@ const Navbar = () => {
         ) : (
           <>
             <li>
-              <Link to="/ajout_ingredients">Ajouter Ingredients</Link>
+              <Link to="/ajout_ingredients">Garde Manger</Link>
             </li>
             <li>
-              <Link to="/profil">Profil</Link>
+              <Link to="/ajout_recettes">Idées de Recettes</Link>
+            </li>
+            <li className="profilLinks">
+              <Link to="/profil">Mon Compte</Link>
             </li>
           </>
         )}

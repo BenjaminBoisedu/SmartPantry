@@ -5,11 +5,11 @@ import Navbar from "../Nav/Navbar";
 
 export default function Header() {
   return (
-    <div className="header">
+    <header className="header">
       <Link to="/">
         <h1>SmartPantry</h1>
       </Link>
       <Navbar />
-    </div>
+    </header>
   );
 }
