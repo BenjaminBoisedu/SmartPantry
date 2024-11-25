@@ -1,0 +1,111 @@
+body{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+#Header{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/public/Img/Home/textBackImageHome.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#Header img{
+    width: 50%;
+}
+
+.bloc,#blocTextFeature{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90vw;
+    margin-left: 2.5vw;
+    color: #754F31;
+}
+#containeurText{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 10vh;
+    height: 40vh;
+    margin-left: 10%;
+}
+#containeurText p{
+    margin: 0;
+}
+#containeurText #containeurBtn{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    height: 10%;
+}
+#containeurText #containeurBtn a{
+    background-color: #754F31;
+    color: white;
+    height: 100%;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    border-radius: 5px;
+}
+.bloc #containeurImageRecette{
+    display: flex;
+}
+.bloc #imagePoivre{
+    width: 150px;
+    height: 150px;
+}
+
+.bloc #imageRecette{
+    margin-right: -80px;
+    width: 500px;
+    margin-top: 10%;
+    object-fit: contain;
+}
+
+
+#blocTextFeature{
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    display: flex;
+    justify-content: center;
+}
+#blocTextFeature #containeurTextFeature{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#infoImage{
+    width: 70%;
+    object-fit: contain;
+    margin-left: 15vw;
+    margin-bottom: 10vh;
+}
+#containeurChefReviews{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color: #754F31;
+}
+#containeurChefReviews #gauche h1,p{
+    margin-left: 5vw;
+}
+#containeurChefReviews #gauche img{
+    width: 20vw;
+    object-fit: contain;
+    margin-top: 5vh;
+
+}
+#droite{
+    width: 40%;
+}
+#droite img{
+    width: 100%;
+    object-fit: contain;
+}
