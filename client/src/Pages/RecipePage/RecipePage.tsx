@@ -47,7 +47,7 @@ export default function RecipePage() {
       </div>
     <div id="barSeparation"></div>
       <h2>Les ingrédients</h2>
-      <p>Nombre de personnes : {recipe.servings}</p>
+      <p id="nombrePersonne">Nombre de personnes : {recipe.servings}</p>
       <div className="ingredients-list">
         {recipe.extendedIngredients.map((ingredient) => (
           <div key={ingredient.id} className="ingredient-card">
