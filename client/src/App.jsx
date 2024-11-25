@@ -42,8 +42,6 @@ export default function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/recipeProposition" element={<RecipeProposition />} />
-        <Route path="/recipePage/:id" element={<RecipePage />} />
       </Routes>
       <Footer />
     </>
