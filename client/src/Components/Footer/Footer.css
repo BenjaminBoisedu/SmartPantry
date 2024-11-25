@@ -7,8 +7,11 @@ footer {
     width: 100%;
 }
 
-.footerContent a,
-.footerContent a:visited {
+footer a,
+li,
+ul,
+p,
+h2 {
     color: #fff;
     text-decoration: none;
 }
