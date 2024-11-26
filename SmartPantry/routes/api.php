@@ -10,6 +10,7 @@ use App\Http\Controllers\AuthController;
 Route::apiResource('categories', CategoriesController::class);
 Route::get('categories/{categorie}/produits', [CategoriesController::class, 'GetCategorieProduits']);
 Route::apiResource('produits', ProduitsController::class);
+Route::post('/user/products-by-email', [ProduitsController::class, 'getProductsByEmail']);
 
 // Login route
 Route::post('login', [AuthController::class, 'login']);
