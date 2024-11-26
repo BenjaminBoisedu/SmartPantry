@@ -55,7 +55,6 @@ export default function FormLogin() {
         }, 500);
       }
     } catch (error) {
-      console.error("Erreur lors de la connexion :", error);
       alert("Identifiants incorrects");
       const errorDiv = document.getElementById("error");
       errorDiv.innerText = "Identifiants incorrects";
@@ -91,6 +90,7 @@ export default function FormLogin() {
         <form action="" method="POST" onSubmit={handleSubmit} id="FormLogin">
           <div className="InputContainer">
             <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">Email Address</label>
             <input
               type="email"
               id="email"
@@ -102,6 +102,7 @@ export default function FormLogin() {
             />
           </div>
           <div className="InputContainer">
+            <label htmlFor="password">Password</label>
             <label htmlFor="password">Password</label>
             <input
               type={showPassword ? "text" : "password"}
