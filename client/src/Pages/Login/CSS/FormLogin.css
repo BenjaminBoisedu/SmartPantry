@@ -14,7 +14,6 @@ body {
     font-weight: bold;
 }
 
-
 .ContainerLogin {
     display: flex;
     flex-direction: row;
@@ -81,7 +80,6 @@ body {
 }
 
 
-
 .ContainerLogin .LoginTextContainer {
     display: flex;
     flex-direction: column;
@@ -93,17 +91,15 @@ body {
 
 .ContainerLogin .LoginTextContainer h1 {
     font-size: 3rem;
-    font-weight: bold;
     margin-bottom: 1rem;
     color: #754F31;
 }
 
 .Text-cta {
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    gap: 0.5rem;
     align-items: center;
-    margin-top: 1rem;
 }
 
 .Text-cta p {
@@ -116,5 +112,4 @@ body {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    margin-left: 0.5rem;
 }

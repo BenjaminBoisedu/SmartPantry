@@ -6,7 +6,7 @@ import { FaLightbulb } from "react-icons/fa";
 import { FaRegBell } from "react-icons/fa";
 import { FaAngleRight, FaQ } from "react-icons/fa6";
 import { IoChevronDownSharp } from "react-icons/io5";
-import FAQ from "../../Components/ui/FAQ/faq";
+import FAQ from "../../Components/FAQ/faq";
 
 export default function Home() {
   return (

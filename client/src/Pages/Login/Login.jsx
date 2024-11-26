@@ -21,10 +21,10 @@ export default function Login() {
           {Login ? <FormLogin /> : <FormRegister />}
           <div className="Text-cta">
             <p>
-              {Login ? "Don't have an account?" : "Already have an account?"}
+              {Login ? "Doesn’t have an account?" : "Already have an account?"}
             </p>
             <button onClick={() => setLogin(!Login)}>
-              {Login ? "Sign in" : "Sign up"}
+              {Login ? "Join the brigade" : "Sign up"}
             </button>
           </div>
         </div>
