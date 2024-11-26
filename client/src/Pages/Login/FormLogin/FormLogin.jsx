@@ -42,7 +42,7 @@ export default function FormLogin() {
               zIndex: 1,
               ease: "back.out(1.7)",
               onComplete: () => {
-                navigate("/");
+                window.location.href = "/";
               },
             }
           );

@@ -19,7 +19,7 @@ const Navbar = () => {
               <Link to="/ajout_ingredients">Garde Manger</Link>
             </li>
             <li>
-              <Link to="/ajout_recettes">Idées de Recettes</Link>
+              <Link to="/recipeProposition">Idées de Recettes</Link>
             </li>
             <li className="profilLinks">
               <Link to="/profil">Mon Compte</Link>
