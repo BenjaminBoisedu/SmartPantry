@@ -7,15 +7,15 @@ body {
 
 /* Header */
 #header {
-    height: 100vh;
+    height: 90vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     background-image: url("/public/Img/Home/textBackImageHome.png");
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center;
 }
 
 #header img {
@@ -29,12 +29,41 @@ body {
     margin-right: auto;
 }
 
-/* Text Styling */
+/* Styles for Let's Cook Section */
 .letscook {
-    text-align: center;
+    padding-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+  
+.letscook p {
+    font-size: 1.5rem;
     color: #754F31;
     font-weight: 300;
 }
+  
+.arrow-icon {
+    font-size: 2rem;
+    color: #754F31; 
+    margin-top: 0.5rem; 
+    animation: bounce 2s infinite;
+}
+  
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+  
 
 /* Bloc Section */
 .bloc {
@@ -105,7 +134,31 @@ body {
 .bloc #imagePoivre {
     width: 150px;
     height: 150px;
+    animation: rotatepoivre 1s ease infinite; 
 }
+
+
+@keyframes rotatepoivre {
+    0% {
+        transform: rotate(0deg);
+    }
+    20% {
+        transform: rotate(-5deg);
+    }
+    40% {
+        transform: rotate(5deg);
+    }
+    60% {
+        transform: rotate(-5deg);
+    }
+    80% {
+        transform: rotate(5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
 
 /* Feature Text Section */
 #blocTextFeature {
@@ -140,6 +193,66 @@ body {
     margin-bottom: 10vh;
 }
 
+#allCard{
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+#allCard #card{
+    background-color: #FBF7F4;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    width: 28%;
+    border-radius: 2rem;
+}
+
+#allCard #card .icon{
+    font-size: 2rem;
+    color: #754F31;
+}
+
+#allCard #card h3{
+    font-size: 2rem;
+    color: #754F31;
+}
+
+#allCard #card p{
+    font-size: 1rem;
+    color: #754F31;
+    font-weight: 300;
+}
+
+div #containeurBtn{
+    margin-top: 2rem;
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+#btnLearnMore{
+    color: #754F31;
+    padding: 16px 24px;
+    text-decoration: none;
+    border: 2px solid #754F31;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+div #containeurBtn div{
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #754F31;
+}
+
+div #containeurBtn div #signin{
+    color: #754F31;
+    text-decoration: none;
+}
+
 /* Chef Reviews */
 #containeurChefReviews {
     display: flex;
@@ -157,19 +270,43 @@ body {
     font-weight: 300;
 }
 
+
 #containeurChefReviews #gauche img {
     width: 20vw;
     object-fit: contain;
     margin-top: 5rem;
+    animation: rotate 4s ease infinite; 
 }
 
-#droite {
-    width: 40%;
+/* Rotation Animation */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
 }
+
+#droite{
+    display: flex;
+    justify-content: flex-end;
+}
+
 
 #droite img {
-    width: 100%;
+    width: 60%;
     object-fit: contain;
+    transition: 1s;
+}
+
+#droite img:hover{
+    cursor: pointer;
+    transform: rotate(2deg);
+    transition: 1s;
 }
 
 /* Container Take Control Of Your Kitchen */
@@ -287,6 +424,14 @@ body {
 
 
 @media (max-width: 768px) {
+    #header{
+        height: 100vh;
+        width: 100%;
+        background-size: contain;
+        background-repeat: no-repeat; 
+        background-position: center;
+    }
+
     #header img {
         width: 90%;
     }
@@ -304,14 +449,17 @@ body {
         font-size: 16px;
     }
 
+    /* #containeurImageRecette{
+        width: 100%;
+    } */
+
     .bloc #imageRecette {
-        width: 90%;
+        width: 100%;
         margin-top: 1rem;
     }
 
     .bloc #imagePoivre {
-        width: 100px;
-        height: 100px;
+        width: 50%;
     }
 
     #blocTextFeature {
@@ -327,17 +475,27 @@ body {
         width: 90%;
     }
 
+    #allCard{
+        flex-direction: column;
+    }
+    
+    #allCard #card{
+        width: 100%;
+    }
+
     #containeurChefReviews {
         flex-direction: column;
         align-items: center;
     }
 
     #containeurChefReviews #gauche img {
-        width: 50%;
+        display: none;
+        justify-content: center;
     }
 
-    #droite {
-        width: 90%;
+    #droite img{
+       padding-top: 3rem;
+       width: 100%;
     }
 
     #containeurcontrolkitchen {
