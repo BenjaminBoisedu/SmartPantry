@@ -221,8 +221,7 @@ body {
     font-weight: 500;
 }
 
-/* Media Queries for Responsiveness */
-/* Tablets and Medium Screens */
+
 @media (max-width: 1024px) {
     #header img {
         width: 70%;
@@ -286,7 +285,7 @@ body {
     }
 }
 
-/* Mobile Devices */
+
 @media (max-width: 768px) {
     #header img {
         width: 90%;
