@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Produit;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -29,16 +30,22 @@ class ProduitsController extends Controller
                 'Name' => 'required|unique:produits',
                 'quantity' => 'required|numeric',
                 'unit' => 'required|string',
+                'email' => 'required'
             ]);
+
+        $user = User::where('email', $request->input('email'))->first();
+        
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
     
             $produits = Produit::create([
                 'Name' => $request->input('Name'),
                 'quantity' => $request->input('quantity'),
                 'Unit' => $request->input('unit'),
             ]);
-            $userId = 1 ;
-            $produits->users()->attach($userId);
-            return response()->json($produits, 201);
+            $produits->users()->attach($user);
+            return response()->json($produits, 200);
     
         } catch (\Exception $e) {
             return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
@@ -72,4 +79,22 @@ class ProduitsController extends Controller
     {
         return response()->json(Produit::where('Name', 'like', '%' . $name . '%')->get(), 200);
     }
+
+    public function getProductsByEmail(Request $request)
+{
+    try {
+        
+        $user = User::where('email', $request->input('email'))->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        $products = $user->produits;
+
+        return response()->json($products, 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
+    }
+}
 }

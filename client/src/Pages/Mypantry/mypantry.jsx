@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./CSS/MyPantry.css";
 import axios from "axios";
 
@@ -9,10 +9,55 @@ export default function MyPantry() {
   const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const addIngredient = (item) => {
-    setMyPantry([...MyPantry, item]);
-    removePendingItem(item);
+  const fetchUserIngredients = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/user/products-by-email",
+        { email: localStorage.getItem("email") }
+      );
+      console.log(response.data);
+      setMyPantry(response.data);
+    } catch (error) {
+      console.error("Error fetching user ingredients:", error.response?.data || error.message);
+    }
   };
+
+  useEffect(() => {
+    fetchUserIngredients();
+  }, []);
+
+  const addIngredient = async (item) => {
+    try {
+      const email = localStorage.getItem("email");
+  
+      if (!email) {
+        console.error("Email not found in localStorage.");
+        return;
+      }
+  
+      const ingredientData = {
+        Name: item.name,
+        quantity: item.quantity,
+        unit: item.unit,
+        email: email, 
+      };
+  
+      const response = await axios.post(
+        "http://localhost:8000/api/produits", 
+        ingredientData
+      );
+  
+      if (response.status === 200) {
+        setMyPantry([...MyPantry, response.data]); 
+        removePendingItem(item);
+      } else {
+        console.error("Error adding ingredient to pantry.");
+      }
+    } catch (error) {
+      console.error("Error adding ingredient:", error.response?.data || error.message);
+    }
+  };
+  
 
   const removeIngredient = (item) => {
     setMyPantry(MyPantry.filter((i) => i.name !== item.name));
@@ -78,9 +123,8 @@ export default function MyPantry() {
           MyPantry.map((item, index) => (
             <div className="item" key={index}>
               <p>
-                {item.quantity} {item.unit} of {item.name}
+                {item.Quantity} {item.Unit} of {item.Name}
               </p>
-              <button onClick={() => removeIngredient(item)}>Remove</button>
             </div>
           ))
         )}
