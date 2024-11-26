@@ -1,10 +1,10 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "../CSS/FormLogin.css";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import LoginBtn from "../../../Components/ui/btn/LoginBtn";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function FormLogin() {
   const [email, setEmail] = useState("");
@@ -12,15 +12,14 @@ export default function FormLogin() {
   const [showPassword, setShowPassword] = useState(false);
 
   const tl = gsap.timeline();
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/api/login", {
-        email: email,
-        password: password,
+        email,
+        password,
       });
       if (response.data) {
         localStorage.setItem("Name", response.data.user.Name);
@@ -56,7 +55,6 @@ export default function FormLogin() {
         }, 500);
       }
     } catch (error) {
-      console.error("Erreur lors de la connexion :", error);
       alert("Identifiants incorrects");
       const errorDiv = document.getElementById("error");
       errorDiv.innerText = "Identifiants incorrects";
@@ -83,6 +81,7 @@ export default function FormLogin() {
         <h1>Success</h1>
         <p>You have successfully logged in!</p>
       </div>
+
       <div className="LoginTextContainer">
         <h1>Connexion</h1>
         <div className="returnError">
@@ -90,7 +89,7 @@ export default function FormLogin() {
         </div>
         <form action="" method="POST" onSubmit={handleSubmit} id="FormLogin">
           <div className="InputContainer">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">Email Address</label>
             <input
               type="email"
               id="email"
@@ -102,7 +101,7 @@ export default function FormLogin() {
             />
           </div>
           <div className="InputContainer">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password</label>
             <input
               type={showPassword ? "text" : "password"}
               id="password"
@@ -112,10 +111,12 @@ export default function FormLogin() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <input
-              type="checkbox"
+            <div
+              className="icon"
               onClick={() => setShowPassword(!showPassword)}
-            />
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </div>
           </div>
           <LoginBtn />
         </form>
