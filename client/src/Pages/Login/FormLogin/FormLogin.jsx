@@ -5,8 +5,17 @@ import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import LoginBtn from "../../../Components/ui/btn/LoginBtn";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import React, { useState } from "react";
+import axios from "axios";
+import "../CSS/FormLogin.css";
+import { useNavigate } from "react-router-dom";
+import { gsap } from "gsap";
+import LoginBtn from "../../../Components/ui/btn/LoginBtn";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function FormLogin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +26,7 @@ export default function FormLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const response = await axios.post("http://localhost:8000/api/login", {
       const response = await axios.post("http://localhost:8000/api/login", {
         email,
         password,
@@ -29,7 +39,9 @@ export default function FormLogin() {
         setTimeout(() => {
           gsap.fromTo(
             ".transition",
+            ".transition",
             {
+              top: "57rem",
               top: "57rem",
               duration: 1,
               opacity: 1,
@@ -37,24 +49,31 @@ export default function FormLogin() {
             },
             {
               top: "0",
+              top: "0",
               duration: 2,
               opacity: 1,
               zIndex: 1,
               ease: "back.out(1.7)",
+              ease: "back.out(1.7)",
               onComplete: () => {
-                navigate("/");
+                window.location.href = "/";
               },
             }
           );
+          tl.to(".bi-check-circle", {
           tl.to(".bi-check-circle", {
             delay: 0.5,
             rotate: 360,
             duration: 2,
             ease: "back.out(1.7)",
+            ease: "back.out(1.7)",
           });
         }, 500);
       }
     } catch (error) {
+      alert("Identifiants incorrects");
+      const errorDiv = document.getElementById("error");
+      errorDiv.innerText = "Identifiants incorrects";
       alert("Identifiants incorrects");
       const errorDiv = document.getElementById("error");
       errorDiv.innerText = "Identifiants incorrects";
@@ -106,6 +125,7 @@ export default function FormLogin() {
             <label htmlFor="password">Password</label>
             <input
               type={showPassword ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               id="password"
               className="input"
               name="password"
@@ -113,6 +133,10 @@ export default function FormLogin() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <div
+              className="icon"
+              onClick={() => setShowPassword(!showPassword)}
+            >
             <div
               className="icon"
               onClick={() => setShowPassword(!showPassword)}
