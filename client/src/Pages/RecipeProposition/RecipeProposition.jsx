@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./RecipeProposition.css";
+import Filtres from "../../Components/Filtres/Filtres";
 
 export default function RecipeProposition() {
   const [recipes, setRecipes] = useState([]);
@@ -32,6 +33,7 @@ export default function RecipeProposition() {
         type="text"
         placeholder="Entrer le nom de la recette :"
       />
+      <Filtres />
       <div id="containeurRecette">
         {loading ? (
           <p>Chargement des recettes...</p>

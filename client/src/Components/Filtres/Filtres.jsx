@@ -19,10 +19,6 @@ export default function Filtres() {
     }
   };
 
-  useEffect(() => {
-    FilterRecettes();
-  }, []);
-
   const Régime = [
     "Sans gluten",
     "Cétogène",
@@ -50,7 +46,9 @@ export default function Filtres() {
               Difficulté:
               <select name="Difficulté" id="Difficulté">
                 {Difficulté.map((difficulté) => (
-                  <option value={difficulté}>{difficulté}</option>
+                  <option value={difficulté} key={difficulté}>
+                    {difficulté}
+                  </option>
                 ))}
               </select>
             </label>
@@ -60,7 +58,9 @@ export default function Filtres() {
               Régime:
               <select name="Temps" id="Temps">
                 {Régime.map((régime) => (
-                  <option value={régime}>{régime}</option>
+                  <option value={régime} key={régime}>
+                    {régime}
+                  </option>
                 ))}
               </select>
             </label>
@@ -70,7 +70,9 @@ export default function Filtres() {
               Temps:
               <select name="Temps" id="Temps">
                 {Temps.map((temps) => (
-                  <option value={temps}>{temps}</option>
+                  <option value={temps} key={temps}>
+                    {temps}
+                  </option>
                 ))}
               </select>
             </label>
