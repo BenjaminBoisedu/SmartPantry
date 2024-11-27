@@ -1,23 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Danfo&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Quicksand:wght@300..700&display=swap');
+
 .Nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    font-size: 1.2rem;
     height: 60px;
 }
 
 .Nav li {
     list-style: none;
-    display: inline;
-    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
     font-size: small;
-    color: #754F31;
 }
 
 .Nav li a {
+    font-family: 'Inter' sans-serif;
+    font-style: normal;
     text-decoration: none;
     color: #754F31;
+    font-size: 1rem;
 }
 
 .Nav li.profilLinks {
