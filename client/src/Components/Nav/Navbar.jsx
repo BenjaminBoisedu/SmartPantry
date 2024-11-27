@@ -1,32 +1,38 @@
 import React from "react";
 import { useState } from "react";
-import "./Navbar.css";
+import styles from "./navbar.module.css";
 import { Link } from "react-router-dom";
+import LoginBtn from "../ui/btn/LoginBtn";
+import AccountBtn from "../ui/btn/AccountBtn";
 
 const Navbar = () => {
   const accessToken = localStorage.getItem("access_token");
 
   return (
-    <div>
-      <ul className="Nav">
+    <div className={styles.navBar}>
+      <div className={styles.navLeft}>
+        <p className={styles.navTitle}>SmartPantry</p>
+      </div>
+      <div className={styles.navRight}>
         {!accessToken ? (
           <li>
-            <Link to="/login">Connexion</Link>
+            <LoginBtn />
           </li>
         ) : (
           <>
-            <li>
-              <Link to="/ajout_recettes">Recipe Ideas</Link>
-            </li>
-            <li>
-              <Link to="/recipeProposition">Idées de Recettes</Link>
-            </li>
-            <li className="profilLinks">
-              <Link to="/profil">My Account</Link>
-            </li>
+            <Link className={styles.navLink} to="/inventory">
+              Inventory
+            </Link>
+            <Link className={styles.navLink} to="/enerate">
+              Recipe Ideas
+            </Link>
+            <Link className={styles.navLink} to="/List">
+              Shopping List
+            </Link>
+            <AccountBtn />
           </>
         )}
-      </ul>
+      </div>
     </div>
   );
 };
