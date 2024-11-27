@@ -101,6 +101,8 @@ export default function FormRegister() {
         <h1>Success</h1>
         <p>You have successfully registered!</p>
       </div>
+
+      
       <h1>Join the Brigade</h1>
       <div className="returnError">
         <p id="error"></p>
