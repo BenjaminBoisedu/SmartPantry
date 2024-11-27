@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import "./RecipeProposition.css";
 
 export default function RecipeProposition() {
-  const [recipes, setRecipes] = useState([]); 
+  const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const apiKey = "c9d232ec6e0d41248085ac54fb3eac3d"; 
+        const apiKey = "c9c6579ba7f24849bee095c326cfe70d";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/random?number=100&apiKey=${apiKey}`
         );
         const data = await response.json();
-        setRecipes(data.recipes); 
-        setLoading(false); 
+        setRecipes(data.recipes);
+        setLoading(false);
       } catch (error) {
         console.error("Erreur lors de la récupération des recettes :", error);
         setLoading(false);
@@ -37,7 +37,11 @@ export default function RecipeProposition() {
           <p>Chargement des recettes...</p>
         ) : recipes.length > 0 ? (
           recipes.map((recipe) => (
-            <a className="recette" key={recipe.id} href={`/recipePage/${recipe.id}`}>
+            <a
+              className="recette"
+              key={recipe.id}
+              href={`/recipePage/${recipe.id}`}
+            >
               <img
                 src={recipe.image}
                 alt={recipe.title}
