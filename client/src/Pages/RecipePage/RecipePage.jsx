@@ -10,7 +10,7 @@ export default function RecipePage() {
   useEffect(() => {
     const fetchRecipeDetails = async () => {
       try {
-        const apiKey = "c9d232ec6e0d41248085ac54fb3eac3d";
+        const apiKey = "c9c6579ba7f24849bee095c326cfe70d";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`
         );

@@ -53,11 +53,13 @@ export default function RecipeProposition() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const apiKey = "e03a2510845c466895de10d89e3c77de";
+        const apiKey = "c9c6579ba7f24849bee095c326cfe70d";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/random?number=100&apiKey=${apiKey}`
         );
         const data = await response.json();
+        setRecipes(data.recipes);
+        setLoading(false);
         setRecipes(data.recipes);
         setLoading(false);
       } catch (error) {
