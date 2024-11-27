@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./RecipeProposition.css";
-import Filtres from "../../Components/Filtres/Filtres";
-
+import axios from "axios";
 export default function RecipeProposition() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const FilterRecettes = async (régime, difficulté, temps) => {
+  const FilterRecettes = async (régime, temps) => {
     try {
       const response = await axios.get(
         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&diet=${régime}&maxReadyTime=${temps}&type=${type}`
@@ -54,7 +53,7 @@ export default function RecipeProposition() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const apiKey = "c9c6579ba7f24849bee095c326cfe70d";
+        const apiKey = "e03a2510845c466895de10d89e3c77de";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/random?number=100&apiKey=${apiKey}`
         );
