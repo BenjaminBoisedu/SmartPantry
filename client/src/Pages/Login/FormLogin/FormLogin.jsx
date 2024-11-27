@@ -42,7 +42,7 @@ export default function FormLogin() {
               zIndex: 1,
               ease: "back.out(1.7)",
               onComplete: () => {
-                window.location.href = "/";
+                navigate("/");
               },
             }
           );
@@ -55,6 +55,7 @@ export default function FormLogin() {
         }, 500);
       }
     } catch (error) {
+      console.error("Erreur lors de la connexion :", error);
       alert("Identifiants incorrects");
       const errorDiv = document.getElementById("error");
       errorDiv.innerText = "Identifiants incorrects";
