@@ -17,14 +17,14 @@ const Footer = () => {
     },
     {
       id: 2,
-      name: "Twitter",
-      icon: <FaXTwitter />,
+      name: "Instagram",
+      icon: <IoLogoInstagram />,
       link: "#",
     },
     {
       id: 3,
-      name: "Instagram",
-      icon: <IoLogoInstagram />,
+      name: "Twitter",
+      icon: <FaXTwitter />,
       link: "#",
     },
     {
@@ -44,6 +44,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footerContent">
+
         <div className="footerText">
           <h3>SmartPantry</h3>
           <div className="links">
@@ -52,14 +53,21 @@ const Footer = () => {
                 <Link to="/">Home Page</Link>
               </li>
               <li>
-                <Link to="#">A propos de nous</Link>
+                <Link to="#">About us</Link>
               </li>
               <li>
-                <Link to="/ajout_recettes">Contacter nous</Link>
+                <Link to="/contact">Contact Us</Link>
+              </li>
+              <li>
+                <Link to="/getstarted">Get Started</Link>
+              </li>
+              <li>
+                <Link to="/help">Help</Link>
               </li>
             </ul>
           </div>
         </div>
+        
         <div className="footerNetwork">
           <h2>Follow Us</h2>
           <div className="network">
@@ -72,22 +80,24 @@ const Footer = () => {
             </ul>
           </div>
         </div>
+
         <div className="footerMentions">
           <p>© 2024 SmartPantry. All Rights Reserved</p>
           <div className="mentions">
             <ul>
               <li>
-                <Link to="#">Terms of Use</Link>
-              </li>
-              <li>
                 <Link to="#">Privacy Policy</Link>
               </li>
               <li>
-                <Link to="#">Cookie Settings</Link>
+                <Link to="#">Terms of Service</Link>
+              </li>
+              <li>
+                <Link to="#">Cookies Settings</Link>
               </li>
             </ul>
           </div>
         </div>
+
       </div>
     </footer>
   );

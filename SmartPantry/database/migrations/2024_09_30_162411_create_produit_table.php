@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('Name');
             $table->double('Quantity');
             $table->string('Unit');
+            $table->string('id_produit_api')->nullable(); 
             $table->timestamps();
         });
     }

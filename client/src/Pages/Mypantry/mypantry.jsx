@@ -37,14 +37,26 @@ export default function MyPantry() {
         console.error("Email not found in localStorage.");
         return;
       }
+<<<<<<< HEAD
 
+=======
+      console.log("identifiant 2:"+ String(item.id));
+>>>>>>> d8a71fc4d76338de1f735b7add649d365c8aadfc
       const ingredientData = {
         Name: item.name,
         quantity: item.quantity,
         unit: item.unit,
         email: email,
+<<<<<<< HEAD
       };
 
+=======
+        id_produit_api: String(item.id),
+      };
+
+      console.log(ingredientData);
+  
+>>>>>>> d8a71fc4d76338de1f735b7add649d365c8aadfc
       const response = await axios.post(
         "http://localhost:8000/api/produits",
         ingredientData
@@ -90,15 +102,22 @@ export default function MyPantry() {
           `https://api.spoonacular.com/food/ingredients/${item.id}/information?amount=1&apiKey=9fd3c6721b55485f97038bcfe016593c`
         );
         const data = response.data;
-
+        console.log("Item id : "+item.id)
         setPendingItems([
           ...pendingItems,
           {
+            id: item.id,
             name: data.name,
             image: data.image,
             possibleUnits: data.possibleUnits,
+<<<<<<< HEAD
             quantity: "1",
             unit: data.possibleUnits[0],
+=======
+            quantity: 1,
+            unit: data.possibleUnits[0], 
+            id_produit_api: item.id,
+>>>>>>> d8a71fc4d76338de1f735b7add649d365c8aadfc
           },
         ]);
       } catch (error) {
