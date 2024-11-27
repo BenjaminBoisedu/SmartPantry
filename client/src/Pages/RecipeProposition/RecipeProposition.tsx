@@ -35,7 +35,7 @@ export default function RecipeProposition() {
         console.log("ok");
         const apiKey = "3163dac8e6e84c68be7f82233d5c77ca";
         const response = await fetch(
-          `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(",")}&number=100&ignorePantry=true&ranking=2&apiKey=${apiKey}`
+          `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(",")}&number=100&ignorePantry=true&ranking=2&apiKey=${apiKey}&min-missing-ingredients=0`
         );        
         console.log(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(",")}&number=100&apiKey=${apiKey}`)
         const data = await response.json();
