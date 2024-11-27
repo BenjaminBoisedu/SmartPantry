@@ -40,11 +40,17 @@ h1 {
     font-weight: bolder;
     background-color: #fff;
     border-radius: 10px;
+    object-fit: contain;
     width: 20%;
     height: 300px;
     padding: 1rem;
     margin-bottom: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ingredientCard img {
+    object-fit: cover;
+    margin-bottom: 1rem;
 }
 
 .pendingCard {

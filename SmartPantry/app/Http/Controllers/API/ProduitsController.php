@@ -69,10 +69,19 @@ class ProduitsController extends Controller
         return response()->json($produits, 200);
     }
 
-    public function destroy(Produit $produits)
+    public function destroy(Produit $produit)
     {
-        $produits->delete();
-        return response()->json(null, 204);
+        if (!$produit) {
+            return response()->json(['error' => 'Produit not found'], 404);
+        }
+    
+        try {
+            $produit->users()->detach();
+            $produit->delete();
+            return response()->json(null, 204);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete produit', 'message' => $e->getMessage()], 500);
+        }
     }
 
     public function search($name)
