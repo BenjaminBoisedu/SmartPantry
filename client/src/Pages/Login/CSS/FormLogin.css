@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Danfo&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Quicksand:wght@300..700&display=swap');
+
 * {
     padding: 0%;
     margin: 0%;
@@ -8,9 +10,9 @@
 
 body {
     background-color: #f4f4f4;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Inter" sans-serif;
+    font-weight: bold;
 }
-
 
 .ContainerLogin {
     display: flex;
@@ -78,7 +80,6 @@ body {
 }
 
 
-
 .ContainerLogin .LoginTextContainer {
     display: flex;
     flex-direction: column;
@@ -90,17 +91,15 @@ body {
 
 .ContainerLogin .LoginTextContainer h1 {
     font-size: 3rem;
-    font-weight: bold;
     margin-bottom: 1rem;
     color: #754F31;
 }
 
 .Text-cta {
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    gap: 0.5rem;
     align-items: center;
-    margin-top: 1rem;
 }
 
 .Text-cta p {
@@ -113,5 +112,4 @@ body {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    margin-left: 0.5rem;
 }
