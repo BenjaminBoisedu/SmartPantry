@@ -15,7 +15,6 @@ export default function MyPantry() {
         "http://localhost:8000/api/user/products-by-email",
         { email: localStorage.getItem("email") }
       );
-      console.log(response.data);
       setMyPantry(response.data);
     } catch (error) {
       console.error("Error fetching user ingredients:", error.response?.data || error.message);
@@ -34,13 +33,16 @@ export default function MyPantry() {
         console.error("Email not found in localStorage.");
         return;
       }
-  
+      console.log("identifiant 2:"+ String(item.id));
       const ingredientData = {
         Name: item.name,
         quantity: item.quantity,
         unit: item.unit,
-        email: email, 
+        email: email,
+        id_produit_api: String(item.id),
       };
+
+      console.log(ingredientData);
   
       const response = await axios.post(
         "http://localhost:8000/api/produits", 
@@ -70,15 +72,17 @@ export default function MyPantry() {
           `https://api.spoonacular.com/food/ingredients/${item.id}/information?amount=1&apiKey=9fd3c6721b55485f97038bcfe016593c`
         );
         const data = response.data;
-
+        console.log("Item id : "+item.id)
         setPendingItems([
           ...pendingItems,
           {
+            id: item.id,
             name: data.name,
             image: data.image,
             possibleUnits: data.possibleUnits,
             quantity: 1,
             unit: data.possibleUnits[0], 
+            id_produit_api: item.id,
           },
         ]);
       } catch (error) {
