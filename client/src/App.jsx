@@ -8,7 +8,6 @@ import Profil from "./Pages/Profil/Profil";
 import RecipePage from "./Pages/RecipePage/RecipePage";
 import RecipeProposition from "./Pages/RecipeProposition/RecipeProposition";
 import Mypantry from "./Pages/Mypantry/mypantry";
-
 const PrivateRoute = ({ children }) => {
   const accessToken = localStorage.getItem("access_token");
 

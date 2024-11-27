@@ -14,14 +14,11 @@ export default function Filtres() {
         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&diet=${régime}&maxReadyTime=${temps}`
       );
       setFilteredRecettes(response.data.results);
+      e.preventDefault();
     } catch (error) {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    FilterRecettes();
-  }, []);
 
   const Régime = [
     "Sans gluten",
@@ -43,14 +40,16 @@ export default function Filtres() {
 
   return (
     <div className="ContainerFiltres">
-      <form action="" method="post">
+      <form action="" method="post" id="Filtre">
         <div className="Filtres">
           <div className="Filtre">
             <label htmlFor="Difficulté">
               Difficulté:
               <select name="Difficulté" id="Difficulté">
                 {Difficulté.map((difficulté) => (
-                  <option value={difficulté}>{difficulté}</option>
+                  <option value={difficulté} key={difficulté}>
+                    {difficulté}
+                  </option>
                 ))}
               </select>
             </label>
@@ -60,7 +59,9 @@ export default function Filtres() {
               Régime:
               <select name="Temps" id="Temps">
                 {Régime.map((régime) => (
-                  <option value={régime}>{régime}</option>
+                  <option value={régime} key={régime}>
+                    {régime}
+                  </option>
                 ))}
               </select>
             </label>
@@ -70,7 +71,9 @@ export default function Filtres() {
               Temps:
               <select name="Temps" id="Temps">
                 {Temps.map((temps) => (
-                  <option value={temps}>{temps}</option>
+                  <option value={temps} key={temps}>
+                    {temps}
+                  </option>
                 ))}
               </select>
             </label>
