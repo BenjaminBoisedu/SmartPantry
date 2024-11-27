@@ -1,0 +1,162 @@
+/* Global Styles */
+footer {
+    background-color: #452F1D;
+    padding: 3rem 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+}
+
+footer a,
+li,
+ul,
+p,
+h2 {
+    text-decoration: none;
+}
+
+footer .footerContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer .footerContent .footerText {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerContent .footerText h3 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #fff;
+}
+
+footer .footerContent .footerText .links ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+footer .footerContent .footerText .links ul li a {
+    color: #fff;
+    font-weight: 300;
+}
+
+.footerNetwork {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.footerNetwork h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.footerNetwork .network ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footerNetwork .network ul li a {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.footerMentions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #fff;
+    padding-top: 3rem;
+}
+
+.footerMentions p {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.footerMentions .mentions ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    font-size: small;
+}
+
+.footerMentions .mentions ul li {
+    border-bottom: 1px solid #fff;
+}
+
+.footerMentions .mentions ul li a {
+    color: #fff;
+    font-weight: 300;
+}
+
+
+@media (max-width: 1024px) {
+    footer .footerContent {
+        gap: 4rem;
+    }
+
+    footer .footerContent .footerText {
+        flex-direction: column;
+    }
+
+    .footerMentions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footerMentions .mentions ul {
+        gap: 1rem;
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+    footer .footerContent {
+        gap: 2rem;
+    }
+
+    footer .footerContent .footerText h3 {
+        font-size: 1.2rem;
+    }
+
+    footer .footerContent .footerText .links ul {
+        list-style: none;
+        gap: 0.7rem;
+        padding-top: 1rem;
+    }
+
+    footer .footerContent .footerText .links ul li a {
+        font-size: 13px;
+    }
+
+    .footerNetwork h2 {
+        font-size: 1.2rem;
+    }
+
+    .footerNetwork .network ul {
+        gap: 1rem;
+    }
+
+    .footerMentions p {
+        font-size: 0.875rem;
+    }
+
+    .footerMentions .mentions ul {
+        padding-top: 1rem;
+    }
+}

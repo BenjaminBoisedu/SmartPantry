@@ -56,10 +56,16 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
+        return response()->json(["message" => "Logout."]);
+    }
+
+    public function delete(Request $request)
+    {
+        $request->user()->delete();
 
         return response()->json([
-            'message' => 'Logged out',
+            'message' => 'User deleted',
         ]);
     }
 
@@ -71,7 +77,8 @@ class AuthController extends Controller
     public function UpdatePassword(Request $request)
     {
         $validatedData = $request->validate([
-            'password' => 'required',
+            'password' => 'required|string|min:4|max:255|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+            'email' => 'required|string',
         ]);
 
         $user = User::where('email', $request['email'])->firstOrFail();
@@ -99,23 +106,6 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Email updated',
-        ]);
-    }
-
-    public function UpdateName(Request $request)
-    {
-        $validatedData = $request->validate([
-            'Name' => 'required|string|max:255',
-        ]);
-
-        $user = User::where('email', $request['email'])->firstOrFail();
-
-        $user->update([
-            'Name' => $validatedData['Name'],
-        ]);
-
-        return response()->json([
-            'message' => 'Name updated',
         ]);
     }
 }

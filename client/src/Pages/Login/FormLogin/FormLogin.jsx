@@ -1,60 +1,62 @@
-import React from "react";
-import { useState } from "react";
-import axios from "axios";
-import "../CSS/FormLogin.css";
-import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
-import LoginBtn from "../../../Components/ui/btn/LoginBtn";
+import React, { useState } from 'react';
+import axios from 'axios';
+import '../CSS/FormLogin.css';
+import { useNavigate } from 'react-router-dom';
+import { gsap } from 'gsap';
+import LoginBtn from '../../../Components/ui/btn/LoginBtn';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function FormLogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const tl = gsap.timeline();
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/api/login", {
-        email: email,
-        password: password,
+      const response = await axios.post('http://localhost:8000/api/login', {
+        email,
+        password,
       });
       if (response.data) {
-        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem('access_token', response.data.access_token);
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
         setTimeout(() => {
           gsap.fromTo(
-            ".transition",
+            '.transition',
             {
-              top: "57rem",
+              top: '57rem',
               duration: 1,
               opacity: 1,
               zIndex: 1,
             },
             {
-              top: "0",
+              top: '0',
               duration: 2,
               opacity: 1,
               zIndex: 1,
-              ease: "back.out(1.7)",
+              ease: 'back.out(1.7)',
               onComplete: () => {
-                navigate("/");
+                navigate('/');
               },
             }
           );
-          tl.to(".bi-check-circle", {
+          tl.to('.bi-check-circle', {
             delay: 0.5,
             rotate: 360,
             duration: 2,
-            ease: "back.out(1.7)",
+            ease: 'back.out(1.7)',
           });
         }, 500);
       }
     } catch (error) {
-      alert("Identifiants incorrects");
-      e.target.reset();
+      alert('Identifiants incorrects');
+      const errorDiv = document.getElementById('error');
+      errorDiv.innerText = 'Identifiants incorrects';
     }
   };
 
@@ -78,11 +80,15 @@ export default function FormLogin() {
         <h1>Success</h1>
         <p>You have successfully logged in!</p>
       </div>
+
       <div className="LoginTextContainer">
         <h1>Connexion</h1>
+        <div className="returnError">
+          <p id="error"></p>
+        </div>
         <form action="" method="POST" onSubmit={handleSubmit} id="FormLogin">
           <div className="InputContainer">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">Email Address</label>
             <input
               type="email"
               id="email"
@@ -94,9 +100,9 @@ export default function FormLogin() {
             />
           </div>
           <div className="InputContainer">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password</label>
             <input
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               id="password"
               className="input"
               name="password"
@@ -104,10 +110,9 @@ export default function FormLogin() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <input
-              type="checkbox"
-              onClick={() => setShowPassword(!showPassword)}
-            />
+            <div className="icon" onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </div>
           </div>
           <LoginBtn />
         </form>

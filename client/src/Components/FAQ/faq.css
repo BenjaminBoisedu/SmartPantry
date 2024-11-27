@@ -1,0 +1,132 @@
+/* FAQ */
+
+#faq {
+    display: flex;
+    justify-content: space-between;
+    color: #754F31;
+    gap: 10rem;
+    padding: 2rem;
+}
+
+#faq #left {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#faq #left h1 {
+    font-size: 3rem;
+}
+
+#faq #left p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+#faq #right {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+#faq #right .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-bottom: 1px solid #754F31;
+    padding-bottom: 2rem;
+}
+
+#faq #right .container .question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+#faq #right .container .question h3 {
+    font-size: 1.2rem;
+}
+
+#faq #right .container .question .icon {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+#faq #right .container .question .icon.rotate {
+    transform: rotate(180deg);
+}
+
+#faq #right .container .answer {
+    font-size: 1rem;
+    font-weight: 300;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+#faq #right .container .answer.show {
+    max-height: 200px;
+    opacity: 1;
+}
+
+@media (max-width: 1024px) {
+    #faq {
+        flex-direction: column;
+        gap: 5rem;
+    }
+
+    #faq #left {
+        text-align: center;
+    }
+
+    #faq #left h1 {
+        font-size: 2.5rem;
+    }
+
+    #faq #left p {
+        font-size: 1rem;
+    }
+
+    #faq #right .container {
+        padding-bottom: 2rem;
+    }
+
+    #faq #right .container .question h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+    #faq {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    #faq #left h1 {
+        font-size: 2rem;
+    }
+
+    #faq #right {
+        gap: 1.5rem;
+    }
+
+    #faq #right .container {
+        padding-bottom: 1.5rem;
+    }
+
+    #faq #right .container .question h3 {
+        font-size: 1rem;
+    }
+
+    #faq #right .container .question .icon {
+        font-size: 1.2rem;
+    }
+
+    #faq #right .container .answer {
+        font-size: 0.9rem;
+    }
+}

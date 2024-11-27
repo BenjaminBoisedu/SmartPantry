@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Danfo&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Quicksand:wght@300..700&display=swap');
+
+.Nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+}
+
+.Nav li {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: small;
+}
+
+.Nav li a {
+    font-family: 'Inter' sans-serif;
+    font-style: normal;
+    text-decoration: none;
+    color: #754F31;
+    font-size: 1rem;
+}
+
+.Nav li.profilLinks {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 2px solid #754F31;
+}
+
+.Nav li.profilLinks a {
+    color: #754F31;
+    text-decoration: none;
+}
