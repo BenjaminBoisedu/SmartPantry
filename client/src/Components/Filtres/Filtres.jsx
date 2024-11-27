@@ -14,6 +14,7 @@ export default function Filtres() {
         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&diet=${régime}&maxReadyTime=${temps}`
       );
       setFilteredRecettes(response.data.results);
+      e.preventDefault();
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +40,7 @@ export default function Filtres() {
 
   return (
     <div className="ContainerFiltres">
-      <form action="" method="post">
+      <form action="" method="post" id="Filtre">
         <div className="Filtres">
           <div className="Filtre">
             <label htmlFor="Difficulté">
