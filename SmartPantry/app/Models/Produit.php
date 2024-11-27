@@ -28,7 +28,6 @@ class Produit extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'produit_user', 'produit_id', 'user_id')
-            ->withPivot('Date_Ajout', 'Date_Expiration');  // Inclure les colonnes pivot si nécessaire
+        return $this->belongsToMany(User::class, 'produit_user', 'produit_id', 'user_id');
     }
 }

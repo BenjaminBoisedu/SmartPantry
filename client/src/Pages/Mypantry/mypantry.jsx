@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./CSS/MyPantry.css";
 import axios from "axios";
 
@@ -17,23 +17,26 @@ export default function MyPantry() {
       );
       setMyPantry(response.data);
     } catch (error) {
-      console.error("Error fetching user ingredients:", error.response?.data || error.message);
+      console.error(
+        "Error fetching user ingredients:",
+        error.response?.data || error.message
+      );
     }
   };
 
   useEffect(() => {
+    setMyPantry([]);
     fetchUserIngredients();
   }, []);
 
   const addIngredient = async (item) => {
     try {
       const email = localStorage.getItem("email");
-  
+
       if (!email) {
         console.error("Email not found in localStorage.");
         return;
       }
-      console.log("identifiant 2:"+ String(item.id));
       const ingredientData = {
         Name: item.name,
         quantity: item.quantity,
@@ -45,24 +48,41 @@ export default function MyPantry() {
       console.log(ingredientData);
   
       const response = await axios.post(
-        "http://localhost:8000/api/produits", 
+        "http://localhost:8000/api/produits",
         ingredientData
       );
-  
+
       if (response.status === 200) {
-        setMyPantry([...MyPantry, response.data]); 
+        setMyPantry((prevPantry) => [...prevPantry, response.data]);
+        console.log("Ingredient added to pantry:", response.data);
         removePendingItem(item);
       } else {
         console.error("Error adding ingredient to pantry.");
       }
     } catch (error) {
-      console.error("Error adding ingredient:", error.response?.data || error.message);
+      console.error(
+        "Error adding ingredient:",
+        error.response?.data || error.message
+      );
     }
   };
-  
 
-  const removeIngredient = (item) => {
-    setMyPantry(MyPantry.filter((i) => i.name !== item.name));
+  const removeIngredient = async (item) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/produits/${item.id}`
+      );
+      if (response.status === 204) {
+        setMyPantry(MyPantry.filter((i) => i.id !== item.id));
+      } else {
+        console.error("Error removing ingredient from pantry.");
+      }
+    } catch (error) {
+      console.error(
+        "Error removing ingredient:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   const addPendingItem = async (item) => {
@@ -129,6 +149,7 @@ export default function MyPantry() {
               <p>
                 {item.Quantity} {item.Unit} of {item.Name}
               </p>
+              <button onClick={() => removeIngredient(item)}>Remove</button>
             </div>
           ))
         )}
@@ -136,7 +157,7 @@ export default function MyPantry() {
         <div>
           <h1>Add an item in my pantry</h1>
           <input
-          className="searchInput"
+            className="searchInput"
             type="text"
             placeholder="Search ingredients"
             value={searchQuery}
@@ -193,17 +214,20 @@ export default function MyPantry() {
                       updatePendingItem(index, "unit", e.target.value)
                     }
                   >
-                    {item.possibleUnits.map((unit, i) => (
-                      <option key={i} value={unit}>
-                        {unit}
-                      </option>
-                    ))}
+                    {item.possibleUnits
+                      // .filter((unit) => {
+                      //   const allowedUnits = ["kg", "g", "l", "ml"];
+                      //   return allowedUnits.includes(unit);
+                      // })
+                      .map((unit, i) => (
+                        <option key={i} value={unit}>
+                          {unit}
+                        </option>
+                      ))}
                   </select>
                 </label>
               </div>
-              <button onClick={() => addIngredient(item)}>
-                Add to Pantry
-              </button>
+              <button onClick={() => addIngredient(item)}>Add to Pantry</button>
               <button onClick={() => removePendingItem(item)}>Remove</button>
             </div>
           ))
