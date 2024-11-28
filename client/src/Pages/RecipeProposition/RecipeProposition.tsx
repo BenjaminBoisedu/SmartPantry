@@ -8,7 +8,6 @@ export default function RecipeProposition() {
   const [ingredientIds, setIngredientIds] = useState([]);
 
   useEffect(() => {
-    // Étape 1 : Récupérer les ingrédients de l'utilisateur depuis l'API locale
     const fetchUserIngredients = async () => {
       try {
         const response = await axios.post(
@@ -16,7 +15,7 @@ export default function RecipeProposition() {
           { email: localStorage.getItem("email") }
         );
         const ingredientList = response.data;
-        const ids = ingredientList.map((ingredient) => ingredient.Name); // Extraire uniquement les IDs
+        const ids = ingredientList.map((ingredient) => ingredient.Name); 
         console.log(ids);
         setIngredientIds(ids);
       } catch (error) {
@@ -28,18 +27,16 @@ export default function RecipeProposition() {
   }, []);
 
   useEffect(() => {
-    // Étape 2 : Une fois les IDs récupérés, appeler l'API Spoonacular
     const fetchRecipes = async () => {
-      if (ingredientIds.length === 0) return; // Ne pas exécuter si les IDs ne sont pas disponibles
+      if (ingredientIds.length === 0) return; 
       try {
         console.log("ok");
         const apiKey = "3163dac8e6e84c68be7f82233d5c77ca";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(",")}&number=100&ignorePantry=true&ranking=2&apiKey=${apiKey}&min-missing-ingredients=0`
         );        
-        console.log(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(",")}&number=100&apiKey=${apiKey}`)
         const data = await response.json();
-        setRecipes(data); // Spoonacular retourne directement un tableau
+        setRecipes(data); 
         setLoading(false);
       } catch (error) {
         console.error("Erreur lors de la récupération des recettes :", error);
@@ -48,7 +45,7 @@ export default function RecipeProposition() {
     };
 
     fetchRecipes();
-  }, [ingredientIds]); // Appeler cette fonction uniquement lorsque les IDs changent
+  }, [ingredientIds]); 
 
   return (
     <div id="PageProposition">
@@ -70,8 +67,7 @@ export default function RecipeProposition() {
                 onError={(e) => (e.target.src = "path/to/default-image.png")}
               />
               <div className="info">
-                <h4>{recipe.title}</h4>
-                <p>{recipe.readyInMinutes} min</p>
+                <p>{recipe.title}</p>
               </div>
             </a>
           ))

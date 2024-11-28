@@ -22,9 +22,8 @@ const Navbar = () => {
           </li>
         ) : (
           <>
-            <Link className={styles.navLink} to="/inventory">Inventory</Link>
-            <Link className={styles.navLink} to="/enerate">Recipe Ideas</Link>
-            <Link className={styles.navLink} to="/List">Shopping List</Link>
+            <Link className={styles.navLink} to="/mypantry">Inventory</Link>
+            <Link className={styles.navLink} to="/recipeProposition">Recipe Ideas</Link>
             <AccountBtn />
           </>
         )}

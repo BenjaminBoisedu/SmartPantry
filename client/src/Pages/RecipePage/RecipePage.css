@@ -6,7 +6,15 @@
     max-height: 300px;
     object-fit: cover;
   }
-  
+  .infoRecipe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+  }
+  .infoRecipe span{
+    font-size: 4rem;
+  }
   .calories-button {
     color: white;
     border: #c47f37 1px solid;
@@ -34,13 +42,13 @@
     margin: 10px;
     font-size: 16px;
     border: #754F31 1px solid;
-    width: 20vh;
-    height: 20vh;
+    width: 15vh;
+    height: 15vh;
     border-radius: 50%;
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 3.5rem;
     background-color: #754F31;
     color: white;
   }
@@ -94,7 +102,7 @@
     
   
   .take-recipe-button {
-    background-color: #c47f37;
+    background-color: #754F31;
     color: white;
     border: none;
     padding: 15px 30px;
@@ -103,4 +111,6 @@
     font-size: 18px;
     cursor: pointer;
   }
-  
+  .take-recipe-button:hover{
+    background-color: #b17c54;
+  }
