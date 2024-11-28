@@ -50,3 +50,27 @@
     transform: scale(1.1);
     cursor: pointer;
 }
+
+#searchBarRecipe{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    border: #754F31 2px solid;
+    height: 5vh;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#searchBarRecipe input{
+    background-color: transparent;
+    width: 80%;
+}
+#searchBarRecipe button{
+    background-color: #754F31;
+    color: white;
+    width: 20%;
+}
+
+#searchBarRecipe button:hover{
+    cursor: pointer;
+}

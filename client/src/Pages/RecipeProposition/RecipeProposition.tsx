@@ -6,6 +6,7 @@ export default function RecipeProposition() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [ingredientIds, setIngredientIds] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // État pour la barre de recherche
 
   useEffect(() => {
     const fetchUserIngredients = async () => {
@@ -25,6 +26,28 @@ export default function RecipeProposition() {
 
     fetchUserIngredients();
   }, []);
+
+  const handleSearch = async () => {
+    if (searchQuery.trim() === "") {
+      alert("Veuillez entrer un terme de recherche.");
+      return;
+    }
+  
+    setLoading(true);
+    try {
+      const apiKey = "3163dac8e6e84c68be7f82233d5c77ca";
+      const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchQuery}&apiKey=${apiKey}&number=100&ignorePantry=true`;
+  
+      const response = await axios.get(url);
+      const data = response.data.results; // Récupère les résultats
+      setRecipes(data);
+    } catch (error) {
+      console.error("Erreur lors de la recherche :", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -50,11 +73,10 @@ export default function RecipeProposition() {
   return (
     <div id="PageProposition">
       <h1>Proposition de recettes</h1>
-      <input
-        id="inputRechercheRecettes"
-        type="text"
-        placeholder="Entrer le nom de la recette :"
-      />
+      <div id="searchBarRecipe">
+        <input type="text" placeholder="Entrer le nom de la recette :" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+        <button onClick={handleSearch}>Rechercher</button>
+      </div>
       <div id="containeurRecette">
         {loading ? (
           <p>Chargement des recettes...</p>
