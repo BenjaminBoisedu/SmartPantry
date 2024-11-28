@@ -127,7 +127,7 @@ export default function MyPantry() {
     if (!searchQuery.trim()) return;
     try {
       const response = await axios.get(
-        `https://api.spoonacular.com/food/ingredients/search?query=${searchQuery}&apiKey=9fd3c6721b55485f97038bcfe016593c`
+        `https://api.spoonacular.com/food/ingredients/search?query=${searchQuery}&apiKey=3163dac8e6e84c68be7f82233d5c77ca`
       );
       const data = response.data.results || [];
       setSearchResults(data);
@@ -140,52 +140,68 @@ export default function MyPantry() {
   return (
     <div className="containerMypantry">
       <div className="mypantry">
-        <h1>My Pantry</h1>
+        <h1 className="titreMyPantry">My Pantry</h1>
         {MyPantry.length === 0 ? (
           <p>There's nothing there. Add items to your pantry!</p>
         ) : (
-          MyPantry.map((item, index) => (
-            <div className="item" key={index}>
-              <p>
-                {item.Quantity} {item.Unit} of {item.Name}
-              </p>
-              <button onClick={() => removeIngredient(item)}>Remove</button>
-            </div>
-          ))
+          <div id="conteneurItem">
+            {MyPantry.map((item, index) => ( // Placez correctement la fonction map ici
+              <div className="item" key={index}>
+                <img
+                  src={`https://spoonacular.com/cdn/ingredients_250x250/${item.Name?.toString().replace(/ /g, '-')}.jpg`}
+                  alt={item.Name.replace(" ", "-")}
+                  onError={(e) => (e.target.src = "Img/Pantry/produit_introuvable.png")} // Image par défaut en cas d'erreur
+                />
+                <p>
+                  {item.quantity} {item.unit} of {item.Name.replace(" ", "-")}
+                </p>
+                <button className="buttonRemove" onClick={() => removeIngredient(item)}>Remove</button>
+              </div>
+            ))}
+          </div>
         )}
-
+      </div>
         <div>
-          <h1>Add an item in my pantry</h1>
-          <input
-            className="searchInput"
+          <h1 className="titreMyPantry">Add an item in my pantry</h1>
+          <div className="searchInput">
+            <input id="searchBar"
             type="text"
             placeholder="Search ingredients"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                searchIngredients();
+              }
+            }}
           />
-          <button onClick={searchIngredients}>Search</button>
-
+          <button id="buttonIngredients" onClick={searchIngredients}>Search</button>
+          </div>
           <div className="searchResult">
             {searchResults.length > 0 ? (
               searchResults.map((result, index) => (
-                <div key={index} className="ingredientCard">
+                <div key={index} className="item">
                   <p>{result.name}</p>
                   <img
                     src={`https://spoonacular.com/cdn/ingredients_250x250/${result.image}`}
                     alt={result.name}
+                    onError={(e) => {
+                      e.target.src = "Img/Pantry/produit_introuvable.png"; // Chemin vers l'image par défaut
+                    }}
                   />
-                  <button onClick={() => addPendingItem(result)}>
+
+                  <button className="buttonIngredients" onClick={() => addPendingItem(result)}>
                     Add to Pending
                   </button>
                 </div>
               ))
             ) : (
-              <p>No results found.</p>
+              <p className="noResults">No results add.</p>
             )}
           </div>
         </div>
 
-        <h2>Pending Items</h2>
+        <h2 className="titreMyPantry">Pending Items</h2>
         {pendingItems.length > 0 ? (
           pendingItems.map((item, index) => (
             <div key={index} className="pendingCard">
@@ -197,7 +213,7 @@ export default function MyPantry() {
               <div>
                 <label>
                   Quantity:
-                  <input
+                  <input  className="infomationProduct"
                     type="number"
                     min="1"
                     value={item.quantity}
@@ -208,7 +224,7 @@ export default function MyPantry() {
                 </label>
                 <label>
                   Unit:
-                  <select
+                  <select className="infomationProduct"
                     value={item.unit}
                     onChange={(e) =>
                       updatePendingItem(index, "unit", e.target.value)
@@ -232,9 +248,8 @@ export default function MyPantry() {
             </div>
           ))
         ) : (
-          <p>No pending items.</p>
+          <p className="noResults">No pending items.</p>
         )}
       </div>
-    </div>
   );
 }

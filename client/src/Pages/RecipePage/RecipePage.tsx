@@ -41,9 +41,9 @@ export default function RecipePage() {
       <button className="calories-button">{recipe.nutrition?.calories || "N/A"} Calories</button>
       
       <div className="icons">
-        <span>🍴 {recipe.servings} portions</span>
-        <span>⏱ {recipe.readyInMinutes} minutes</span>
-        <span>{recipe.vegetarian ? "🌱 Végétarien" : "🍖 Non Végétarien"}</span>
+        <div className="infoRecipe"><span>🍴</span>{recipe.servings} portions</div>
+        <div className="infoRecipe"><span>⏱ </span>{recipe.readyInMinutes} minutes</div>
+        <div className="infoRecipe"><span>{recipe.vegetarian ? "🌱" : "🍖"}</span>{recipe.vegetarian ? "Végétarien" : "Non Végétarien"}</div>
       </div>
     <div id="barSeparation"></div>
       <h2>Les ingrédients</h2>
