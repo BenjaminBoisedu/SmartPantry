@@ -35,7 +35,7 @@ export default function RecipeProposition() {
   
     setLoading(true);
     try {
-      const apiKey = "3163dac8e6e84c68be7f82233d5c77ca";
+      const apiKey = "5dc8d2c0a9fd46a18c4d2e37d838af35";
       const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchQuery}&apiKey=${apiKey}&number=100&ignorePantry=true`;
   
       const response = await axios.get(url);
@@ -54,7 +54,7 @@ export default function RecipeProposition() {
       if (ingredientIds.length === 0) return; 
       try {
         console.log("ok");
-        const apiKey = "3163dac8e6e84c68be7f82233d5c77ca";
+        const apiKey = "5dc8d2c0a9fd46a18c4d2e37d838af35";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(",")}&number=100&ignorePantry=true&ranking=2&apiKey=${apiKey}&min-missing-ingredients=0`
         );        
@@ -79,7 +79,7 @@ export default function RecipeProposition() {
       </div>
       <div id="containeurRecette">
         {loading ? (
-          <p>Chargement des recettes...</p>
+          <p className="infoPasDeRecette">Chargement des recettes...</p>
         ) : recipes.length > 0 ? (
           recipes.map((recipe) => (
             <a className="recette" key={recipe.id} href={`/recipePage/${recipe.id}`}>
@@ -94,7 +94,7 @@ export default function RecipeProposition() {
             </a>
           ))
         ) : (
-          <p>Aucune recette trouvée.</p>
+          <p className="infoPasDeRecette">Aucune recette trouvée.</p>
         )}
       </div>
     </div>

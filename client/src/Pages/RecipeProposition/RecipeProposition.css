@@ -52,7 +52,8 @@
 }
 
 #searchBarRecipe{
-    width: 80%;
+    margin-left: 2%;
+    width: 45%;
     display: flex;
     justify-content: space-between;
     border: #754F31 2px solid;
@@ -63,6 +64,7 @@
 
 #searchBarRecipe input{
     background-color: transparent;
+    padding-left: 1%;
     width: 80%;
 }
 #searchBarRecipe button{
@@ -73,4 +75,9 @@
 
 #searchBarRecipe button:hover{
     cursor: pointer;
+}
+
+.infoPasDeRecette{
+    margin-top: 10vh;
+    margin-bottom: 10vh;
 }
