@@ -8,6 +8,54 @@ export default function RecipeProposition() {
   const [ingredientIds, setIngredientIds] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // État pour la barre de recherche
 
+
+
+  const FilterRecettes = async (régime, temps) => {
+    try {
+      const response = await axios.get(
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&diet=${régime}&maxReadyTime=${temps}&type=${type}`
+      );
+      setRecipes(response.data.results);
+      e.preventDefault();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const Régime = [
+    "Sans gluten",
+    "Cétogène",
+    "Végétarien",
+    "Lacto-Végétarien",
+    "Ovo-végétarien",
+    "Végétalien",
+    "Pescétarien",
+    "Paléo",
+    "Primitif",
+    "Faible teneur en FODMAP",
+    "Whole30",
+  ];
+
+  const type = [
+    "main course",
+    "side dish",
+    "dessert",
+    "appetizer",
+    "salad",
+    "bread",
+    "breakfast",
+    "soup",
+    "beverage",
+    "sauce",
+    "marinade",
+    "fingerfood",
+    "snack",
+    "drink",
+  ];
+
+  const Temps = ["15", "30", "45", "60", "90"];
+
+
   useEffect(() => {
     const fetchUserIngredients = async () => {
       try {
@@ -76,6 +124,51 @@ export default function RecipeProposition() {
       <div id="searchBarRecipe">
         <input type="text" placeholder="Entrer le nom de la recette :" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
         <button onClick={handleSearch}>Rechercher</button>
+      </div>
+      <div className="ContainerFiltres">
+        <form action="" method="" id="Filtre">
+          <div className="Filtres">
+            <div className="Filtre">
+              <label htmlFor="Regime">
+                Régime:
+                <select name="Regime" id="Regime">
+                  {Régime.map((régime) => (
+                    <option value={régime} key={régime}>
+                      {régime}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <div className="Filtre">
+              <label htmlFor="Type">
+                Type:
+                <select name="Type" id="Type">
+                  {type.map((type) => (
+                    <option value={type} key={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <div className="Filtre">
+              <label htmlFor="Temps">
+                Temps:
+                <select name="Temps" id="Temps">
+                  {Temps.map((temps) => (
+                    <option value={temps} key={temps}>
+                      {temps}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          </div>
+          <button type="submit" id="buttonFiltre" onClick={FilterRecettes}>
+            Filtrer
+          </button>
+        </form>
       </div>
       <div id="containeurRecette">
         {loading ? (
