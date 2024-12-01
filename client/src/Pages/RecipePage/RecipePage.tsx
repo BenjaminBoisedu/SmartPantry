@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./RecipePage.css";
+import axios from "axios";
 
 export default function RecipePage() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ export default function RecipePage() {
   useEffect(() => {
     const fetchRecipeDetails = async () => {
       try {
-        const apiKey = "3163dac8e6e84c68be7f82233d5c77ca";
+        const apiKey = "5dc8d2c0a9fd46a18c4d2e37d838af35";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`
         );
@@ -33,6 +34,29 @@ export default function RecipePage() {
   if (!recipe) {
     return <p>Aucune recette trouvée.</p>;
   }
+
+  const takeRecipe = async () => {
+    try {
+      // Parcourez chaque ingrédient et envoyez une requête pour mettre à jour le stock
+      for (const ingredient of recipe.extendedIngredients) {
+        const payload = {
+          stock: -ingredient.amount, // Décrémente le stock par la quantité requise
+        };
+  
+        // Faites une requête PUT ou PATCH pour mettre à jour le stock du produit
+        await axios.patch(
+          `http://localhost:8000/api/produits/${ingredient.id}`,
+          payload
+        );
+      }
+  
+      alert("Les ingrédients ont été retirés avec succès !");
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du stock :", error.response?.data || error.message);
+      alert("Une erreur s'est produite lors de la mise à jour des ingrédients.");
+    }
+  };
+  
 
   return (
     <div className="recipe-details">
@@ -61,7 +85,7 @@ export default function RecipePage() {
         ))}
       </div>
 
-      <button className="take-recipe-button">Prendre cette recette</button>
+      <button className="take-recipe-button" onClick={takeRecipe}>Prendre cette recette</button>
     </div>
   );
 }

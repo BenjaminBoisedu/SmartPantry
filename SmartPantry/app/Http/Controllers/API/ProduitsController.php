@@ -111,4 +111,22 @@ class ProduitsController extends Controller
         return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
     }
 }
+
+public function updateStock(Request $request, Produit $produit)
+{
+    $validatedData = $request->validate([
+        'stock' => 'required|integer', // Validez seulement le stock
+        // Supprimez les règles pour addedDate et expirationDate si elles ne sont pas nécessaires ici
+    ]);
+
+    // Mise à jour du produit
+    $produit->stock += $validatedData['stock'];
+    $produit->save();
+
+    return response()->json(['message' => 'Produit mis à jour avec succès', 'produit' => $produit]);
 }
+
+
+}
+
+
