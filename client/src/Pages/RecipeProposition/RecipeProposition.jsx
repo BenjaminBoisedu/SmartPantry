@@ -8,7 +8,7 @@ export default function RecipeProposition() {
   const [ingredientIds, setIngredientIds] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // État pour la barre de recherche
 
-  const FilterRecettes = async (régime, temps, type) => {
+  const FilterRecettes = async () => {
     try {
       const apiKey = "5dc8d2c0a9fd46a18c4d2e37d838af35";
       const régime = document.getElementById("Regime").value;
