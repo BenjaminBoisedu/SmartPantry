@@ -8,35 +8,62 @@ export default function RecipeProposition() {
   const [ingredientIds, setIngredientIds] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // État pour la barre de recherche
 
-
-
-  const FilterRecettes = async (régime, temps) => {
+  const FilterRecettes = async () => {
     try {
-      const response = await axios.get(
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&diet=${régime}&maxReadyTime=${temps}&type=${type}`
-      );
+      const apiKey = "5dc8d2c0a9fd46a18c4d2e37d838af35";
+      const régime = document.getElementById("Regime").value;
+      const temps = document.getElementById("Temps").value;
+      const type = document.getElementById("Type").value;
+
+      let requestURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}`;
+
+      if (régime) {
+        requestURL += `&diet=${régime}`;
+      } else if (temps) {
+        requestURL += `&maxReadyTime=${temps}`;
+      } else if (type) {
+        requestURL += `&type=${type}`;
+      }
+
+      if ((régime, type, temps)) {
+        requestURL += `&diet=${régime}&type=${type}&maxReadyTime=${temps}`;
+      } else if ((régime, temps)) {
+        requestURL += `&diet=${régime}&maxReadyTime=${temps}`;
+      } else if ((régime, type)) {
+        requestURL += `&diet=${régime}&type=${type}`;
+      } else if ((type, temps)) {
+        requestURL += `&type=${type}&maxReadyTime=${temps}`;
+      }
+      console.log(requestURL);
+      const response = await axios.get(requestURL);
       setRecipes(response.data.results);
-      e.preventDefault();
     } catch (error) {
       console.error(error);
     }
   };
 
+  const HandleFilterSubmit = (e) => {
+    e.preventDefault();
+    FilterRecettes();
+  };
+
   const Régime = [
-    "Sans gluten",
-    "Cétogène",
-    "Végétarien",
-    "Lacto-Végétarien",
-    "Ovo-végétarien",
-    "Végétalien",
-    "Pescétarien",
-    "Paléo",
-    "Primitif",
-    "Faible teneur en FODMAP",
+    "",
+    "Gluten Free",
+    "Ketogenic",
+    "Vegetarian",
+    "Lacto-Vegetarian",
+    "Ovo-Vegetarian",
+    "Vegan",
+    "Pescetarian",
+    "Paleo",
+    "Primal",
+    "Low FODMAP",
     "Whole30",
   ];
 
   const type = [
+    "",
     "main course",
     "side dish",
     "dessert",
@@ -53,8 +80,7 @@ export default function RecipeProposition() {
     "drink",
   ];
 
-  const Temps = ["15", "30", "45", "60", "90"];
-
+  const Temps = ["", "15", "30", "45", "60", "90"];
 
   useEffect(() => {
     const fetchUserIngredients = async () => {
@@ -64,11 +90,14 @@ export default function RecipeProposition() {
           { email: localStorage.getItem("email") }
         );
         const ingredientList = response.data;
-        const ids = ingredientList.map((ingredient) => ingredient.Name); 
+        const ids = ingredientList.map((ingredient) => ingredient.Name);
         console.log(ids);
         setIngredientIds(ids);
       } catch (error) {
-        console.error("Erreur lors de la récupération des ingrédients :", error.response?.data || error.message);
+        console.error(
+          "Erreur lors de la récupération des ingrédients :",
+          error.response?.data || error.message
+        );
       }
     };
 
@@ -80,12 +109,12 @@ export default function RecipeProposition() {
       alert("Veuillez entrer un terme de recherche.");
       return;
     }
-  
+
     setLoading(true);
     try {
       const apiKey = "5dc8d2c0a9fd46a18c4d2e37d838af35";
       const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchQuery}&apiKey=${apiKey}&number=100&ignorePantry=true`;
-  
+
       const response = await axios.get(url);
       const data = response.data.results; // Récupère les résultats
       setRecipes(data);
@@ -95,19 +124,20 @@ export default function RecipeProposition() {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     const fetchRecipes = async () => {
-      if (ingredientIds.length === 0) return; 
+      if (ingredientIds.length === 0) return;
       try {
         console.log("ok");
         const apiKey = "5dc8d2c0a9fd46a18c4d2e37d838af35";
         const response = await fetch(
-          `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(",")}&number=100&ignorePantry=true&ranking=2&apiKey=${apiKey}&min-missing-ingredients=0`
-        );        
+          `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(
+            ","
+          )}&number=100&ignorePantry=true&ranking=2&apiKey=${apiKey}&min-missing-ingredients=0`
+        );
         const data = await response.json();
-        setRecipes(data); 
+        setRecipes(data);
         setLoading(false);
       } catch (error) {
         console.error("Erreur lors de la récupération des recettes :", error);
@@ -116,17 +146,22 @@ export default function RecipeProposition() {
     };
 
     fetchRecipes();
-  }, [ingredientIds]); 
+  }, [ingredientIds]);
 
   return (
     <div id="PageProposition">
       <h1>Proposition de recettes</h1>
       <div id="searchBarRecipe">
-        <input type="text" placeholder="Entrer le nom de la recette :" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+        <input
+          type="text"
+          placeholder="Entrer le nom de la recette :"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
         <button onClick={handleSearch}>Rechercher</button>
       </div>
       <div className="ContainerFiltres">
-        <form action="" method="" id="Filtre">
+        <form action="" method="" id="Filtre" onSubmit={HandleFilterSubmit}>
           <div className="Filtres">
             <div className="Filtre">
               <label htmlFor="Regime">
@@ -165,7 +200,7 @@ export default function RecipeProposition() {
               </label>
             </div>
           </div>
-          <button type="submit" id="buttonFiltre" onClick={FilterRecettes}>
+          <button type="submit" id="buttonFiltre">
             Filtrer
           </button>
         </form>
@@ -175,8 +210,16 @@ export default function RecipeProposition() {
           <p className="infoPasDeRecette">Chargement des recettes...</p>
         ) : recipes.length > 0 ? (
           recipes.map((recipe) => (
-            <a className="recette" key={recipe.id} href={`/recipePage/${recipe.id}`}>
-              <img src={recipe.image} alt={recipe.title} onError={(e) => (e.target.src = "path/to/default-image.png")}/>
+            <a
+              className="recette"
+              key={recipe.id}
+              href={`/recipePage/${recipe.id}`}
+            >
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                onError={(e) => (e.target.src = "path/to/default-image.png")}
+              />
               <div className="info">
                 <p>{recipe.title}</p>
               </div>
