@@ -10,14 +10,23 @@ export default function RecipeProposition() {
 
   const FilterRecettes = async (régime, temps, type) => {
     try {
+      const apiKey = "e03a2510845c466895de10d89e3c77de";
+      const régime = document.getElementById("Regime").value;
+      const temps = document.getElementById("Temps").value;
+      const type = document.getElementById("Type").value;
       const response = await axios.get(
         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=${régime}&maxReadyTime=${temps}&type=${type}`
       );
+
       setRecipes(response.data.results);
-      e.preventDefault();
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const HandleFilterSubmit = (e) => {
+    e.preventDefault();
+    FilterRecettes();
   };
 
   const Régime = [
@@ -101,7 +110,7 @@ export default function RecipeProposition() {
       if (ingredientIds.length === 0) return;
       try {
         console.log("ok");
-        const apiKey = "5dc8d2c0a9fd46a18c4d2e37d838af35";
+        const apiKey = "e03a2510845c466895de10d89e3c77de";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(
             ","
@@ -132,7 +141,7 @@ export default function RecipeProposition() {
         <button onClick={handleSearch}>Rechercher</button>
       </div>
       <div className="ContainerFiltres">
-        <form action="" method="" id="Filtre">
+        <form action="" method="" id="Filtre" onSubmit={HandleFilterSubmit}>
           <div className="Filtres">
             <div className="Filtre">
               <label htmlFor="Regime">
@@ -171,7 +180,7 @@ export default function RecipeProposition() {
               </label>
             </div>
           </div>
-          <button type="submit" id="buttonFiltre" onClick={FilterRecettes}>
+          <button type="submit" id="buttonFiltre">
             Filtrer
           </button>
         </form>
