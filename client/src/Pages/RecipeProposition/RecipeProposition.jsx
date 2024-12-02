@@ -14,10 +14,28 @@ export default function RecipeProposition() {
       const régime = document.getElementById("Regime").value;
       const temps = document.getElementById("Temps").value;
       const type = document.getElementById("Type").value;
-      const response = await axios.get(
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=${régime}&maxReadyTime=${temps}&type=${type}`
-      );
 
+      let requestURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}`;
+
+      if (régime) {
+        requestURL += `&diet=${régime}`;
+      } else if (temps) {
+        requestURL += `&maxReadyTime=${temps}`;
+      } else if (type) {
+        requestURL += `&type=${type}`;
+      }
+
+      if ((régime, type, temps)) {
+        requestURL += `&diet=${régime}&type=${type}&maxReadyTime=${temps}`;
+      } else if ((régime, temps)) {
+        requestURL += `&diet=${régime}&maxReadyTime=${temps}`;
+      } else if ((régime, type)) {
+        requestURL += `&diet=${régime}&type=${type}`;
+      } else if ((type, temps)) {
+        requestURL += `&type=${type}&maxReadyTime=${temps}`;
+      }
+      console.log(requestURL);
+      const response = await axios.get(requestURL);
       setRecipes(response.data.results);
     } catch (error) {
       console.error(error);
@@ -30,20 +48,22 @@ export default function RecipeProposition() {
   };
 
   const Régime = [
-    "Sans gluten",
-    "Cétogène",
-    "Végétarien",
-    "Lacto-Végétarien",
-    "Ovo-végétarien",
-    "Végétalien",
-    "Pescétarien",
-    "Paléo",
-    "Primitif",
-    "Faible teneur en FODMAP",
+    "",
+    "Gluten Free",
+    "Ketogenic",
+    "Vegetarian",
+    "Lacto-Vegetarian",
+    "Ovo-Vegetarian",
+    "Vegan",
+    "Pescetarian",
+    "Paleo",
+    "Primal",
+    "Low FODMAP",
     "Whole30",
   ];
 
   const type = [
+    "",
     "main course",
     "side dish",
     "dessert",
@@ -60,7 +80,7 @@ export default function RecipeProposition() {
     "drink",
   ];
 
-  const Temps = ["15", "30", "45", "60", "90"];
+  const Temps = ["", "15", "30", "45", "60", "90"];
 
   useEffect(() => {
     const fetchUserIngredients = async () => {
