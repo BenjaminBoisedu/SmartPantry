@@ -46,7 +46,7 @@ export default function MyPantry() {
       };
 
       console.log(ingredientData);
-  
+
       const response = await axios.post(
         "http://localhost:8000/api/produits",
         ingredientData
@@ -89,10 +89,10 @@ export default function MyPantry() {
     if (!pendingItems.some((pendingItem) => pendingItem.name === item.name)) {
       try {
         const response = await axios.get(
-          `https://api.spoonacular.com/food/ingredients/${item.id}/information?amount=1&apiKey=9fd3c6721b55485f97038bcfe016593c`
+          `https://api.spoonacular.com/food/ingredients/${item.id}/information?amount=1&apiKey=e03a2510845c466895de10d89e3c77de`
         );
         const data = response.data;
-        console.log("Item id : "+item.id)
+        console.log("Item id : " + item.id);
         setPendingItems([
           ...pendingItems,
           {
@@ -101,7 +101,7 @@ export default function MyPantry() {
             image: data.image,
             possibleUnits: data.possibleUnits,
             quantity: 1,
-            unit: data.possibleUnits[0], 
+            unit: data.possibleUnits[0],
             id_produit_api: item.id,
           },
         ]);
@@ -127,7 +127,7 @@ export default function MyPantry() {
     if (!searchQuery.trim()) return;
     try {
       const response = await axios.get(
-        `https://api.spoonacular.com/food/ingredients/search?query=${searchQuery}&apiKey=3163dac8e6e84c68be7f82233d5c77ca`
+        `https://api.spoonacular.com/food/ingredients/search?query=${searchQuery}&apiKey=e03a2510845c466895de10d89e3c77de`
       );
       const data = response.data.results || [];
       setSearchResults(data);
@@ -145,26 +145,42 @@ export default function MyPantry() {
           <p>There's nothing there. Add items to your pantry!</p>
         ) : (
           <div id="conteneurItem">
-            {MyPantry.map((item, index) => ( // Placez correctement la fonction map ici
-              <div className="item" key={index}>
-                <img
-                  src={`https://spoonacular.com/cdn/ingredients_250x250/${item.Name?.toString().replace(/ /g, '-')}.jpg`}
-                  alt={item.Name.replace(" ", "-")}
-                  onError={(e) => (e.target.src = "Img/Pantry/produit_introuvable.png")} // Image par défaut en cas d'erreur
-                />
-                <p>
-                  {item.quantity} {item.unit} of {item.Name.replace(" ", "-")}
-                </p>
-                <button className="buttonRemove" onClick={() => removeIngredient(item)}>Remove</button>
-              </div>
-            ))}
+            {MyPantry.map(
+              (
+                item,
+                index // Placez correctement la fonction map ici
+              ) => (
+                <div className="item" key={index}>
+                  <img
+                    src={`https://spoonacular.com/cdn/ingredients_250x250/${item.Name?.toString().replace(
+                      / /g,
+                      "-"
+                    )}.jpg`}
+                    alt={item.Name.replace(" ", "-")}
+                    onError={(e) =>
+                      (e.target.src = "Img/Pantry/produit_introuvable.png")
+                    } // Image par défaut en cas d'erreur
+                  />
+                  <p>
+                    {item.quantity} {item.unit} of {item.Name.replace(" ", "-")}
+                  </p>
+                  <button
+                    className="buttonRemove"
+                    onClick={() => removeIngredient(item)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              )
+            )}
           </div>
         )}
       </div>
-        <div>
-          <h1 className="titreMyPantry">Add an item in my pantry</h1>
-          <div className="searchInput">
-            <input id="searchBar"
+      <div>
+        <h1 className="titreMyPantry">Add an item in my pantry</h1>
+        <div className="searchInput">
+          <input
+            id="searchBar"
             type="text"
             placeholder="Search ingredients"
             value={searchQuery}
@@ -175,81 +191,88 @@ export default function MyPantry() {
               }
             }}
           />
-          <button id="buttonIngredients" onClick={searchIngredients}>Search</button>
-          </div>
-          <div className="searchResult">
-            {searchResults.length > 0 ? (
-              searchResults.map((result, index) => (
-                <div key={index} className="item">
-                  <p>{result.name}</p>
-                  <img
-                    src={`https://spoonacular.com/cdn/ingredients_250x250/${result.image}`}
-                    alt={result.name}
-                    onError={(e) => {
-                      e.target.src = "Img/Pantry/produit_introuvable.png"; // Chemin vers l'image par défaut
-                    }}
-                  />
-
-                  <button className="buttonIngredients" onClick={() => addPendingItem(result)}>
-                    Add to Pending
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p className="noResults">No results add.</p>
-            )}
-          </div>
+          <button id="buttonIngredients" onClick={searchIngredients}>
+            Search
+          </button>
         </div>
+        <div className="searchResult">
+          {searchResults.length > 0 ? (
+            searchResults.map((result, index) => (
+              <div key={index} className="item">
+                <p>{result.name}</p>
+                <img
+                  src={`https://spoonacular.com/cdn/ingredients_250x250/${result.image}`}
+                  alt={result.name}
+                  onError={(e) => {
+                    e.target.src = "Img/Pantry/produit_introuvable.png"; // Chemin vers l'image par défaut
+                  }}
+                />
 
-        <h2 className="titreMyPantry">Pending Items</h2>
-        {pendingItems.length > 0 ? (
-          pendingItems.map((item, index) => (
-            <div key={index} className="pendingCard">
-              <img
-                src={`https://spoonacular.com/cdn/ingredients_100x100/${item.image}`}
-                alt={item.name}
-              />
-              <p>{item.name}</p>
-              <div>
-                <label>
-                  Quantity:
-                  <input  className="infomationProduct"
-                    type="number"
-                    min="1"
-                    value={item.quantity}
-                    onChange={(e) =>
-                      updatePendingItem(index, "quantity", e.target.value)
-                    }
-                  />
-                </label>
-                <label>
-                  Unit:
-                  <select className="infomationProduct"
-                    value={item.unit}
-                    onChange={(e) =>
-                      updatePendingItem(index, "unit", e.target.value)
-                    }
-                  >
-                    {item.possibleUnits
-                      // .filter((unit) => {
-                      //   const allowedUnits = ["kg", "g", "l", "ml"];
-                      //   return allowedUnits.includes(unit);
-                      // })
-                      .map((unit, i) => (
-                        <option key={i} value={unit}>
-                          {unit}
-                        </option>
-                      ))}
-                  </select>
-                </label>
+                <button
+                  className="buttonIngredients"
+                  onClick={() => addPendingItem(result)}
+                >
+                  Add to Pending
+                </button>
               </div>
-              <button onClick={() => addIngredient(item)}>Add to Pantry</button>
-              <button onClick={() => removePendingItem(item)}>Remove</button>
-            </div>
-          ))
-        ) : (
-          <p className="noResults">No pending items.</p>
-        )}
+            ))
+          ) : (
+            <p className="noResults">No results add.</p>
+          )}
+        </div>
       </div>
+
+      <h2 className="titreMyPantry">Pending Items</h2>
+      {pendingItems.length > 0 ? (
+        pendingItems.map((item, index) => (
+          <div key={index} className="pendingCard">
+            <img
+              src={`https://spoonacular.com/cdn/ingredients_100x100/${item.image}`}
+              alt={item.name}
+            />
+            <p>{item.name}</p>
+            <div>
+              <label>
+                Quantity:
+                <input
+                  className="infomationProduct"
+                  type="number"
+                  min="1"
+                  value={item.quantity}
+                  onChange={(e) =>
+                    updatePendingItem(index, "quantity", e.target.value)
+                  }
+                />
+              </label>
+              <label>
+                Unit:
+                <select
+                  className="infomationProduct"
+                  value={item.unit}
+                  onChange={(e) =>
+                    updatePendingItem(index, "unit", e.target.value)
+                  }
+                >
+                  {item.possibleUnits
+                    // .filter((unit) => {
+                    //   const allowedUnits = ["kg", "g", "l", "ml"];
+                    //   return allowedUnits.includes(unit);
+                    // })
+                    .map((unit, i) => (
+                      <option key={i} value={unit}>
+                        {unit}
+                      </option>
+                    ))}
+                </select>
+              </label>
+            </div>
+            <button onClick={() => addIngredient(item)}>Add to Pantry</button>
+            <button onClick={() => removePendingItem(item)}>Remove</button>
+          </div>
+        ))
+      ) : (
+        <p className="noResults">No pending items.</p>
+      )}
+    </div>
   );
 }
