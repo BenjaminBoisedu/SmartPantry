@@ -176,11 +176,7 @@ export default function RecipeProposition() {
         ) : recipes.length > 0 ? (
           recipes.map((recipe) => (
             <a className="recette" key={recipe.id} href={`/recipePage/${recipe.id}`}>
-              <img
-                src={recipe.image}
-                alt={recipe.title}
-                onError={(e) => (e.target.src = "path/to/default-image.png")}
-              />
+              <img src={recipe.image} alt={recipe.title} onError={(e) => (e.target.src = "path/to/default-image.png")}/>
               <div className="info">
                 <p>{recipe.title}</p>
               </div>
