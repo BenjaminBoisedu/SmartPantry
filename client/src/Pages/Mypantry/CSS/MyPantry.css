@@ -1,0 +1,185 @@
+* {
+    padding: 0%;
+    margin: 0%;
+}
+
+
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #754F31;
+    margin-bottom: 1rem;
+}
+
+.searchResult {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 90vw;
+    margin-left: 2vw;
+}
+
+.ingredientCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bolder;
+    background-color: #fff;
+    border-radius: 10px;
+    object-fit: contain;
+    width: 20%;
+    height: 300px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.ingredientCard img {
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.pendingCard {
+    display: flex;
+    flex-direction:row  ;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bolder;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    margin-left: 5%;
+}
+.pendingCard button{
+    background-color: #754F31;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+.pendingCard button:hover{
+    cursor: pointer;
+    background-color: #9b6c48;
+}
+.searchInput {
+    width: 49%;
+    margin-left: 5%;
+    border-radius: 10px;
+    border: 1px solid #754F31;
+    margin-bottom: 1rem;
+    background-color: #fefefe;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 6vh;
+}   
+#searchBar{
+    width: 90%;
+    padding-left: 20px;
+}
+#buttonIngredients{
+    background-color: #754F31;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 10%;
+}
+#buttonIngredients:hover{
+    cursor: pointer;
+}
+#conteneurItem{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    margin-left: 5vw;
+    width: 90vw;
+}
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    margin-left: 4vw;
+    margin-bottom: 2vw;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .item img {
+    width: 100%;
+    max-height: 120px;
+    object-fit: contain;
+    border-radius: 5px;
+  }
+  
+  .item p {
+    margin: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .item .buttonRemove,.buttonIngredients {
+    padding: 8px 15px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #ff6b6b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0;
+    margin-top: 20px;
+  }
+  
+  .item .buttonRemove:hover {
+    background-color: #f92d2d;
+  }
+  
+  .item:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+.titreMyPantry{
+    margin-left: 5vw;
+    margin-bottom: 1vh;
+}
+
+.buttonIngredients{
+    background-color: #754F31;
+}
+.buttonIngredients:hover{
+    cursor: pointer;
+    background-color: #9b6c48;
+}
+
+.noResults{
+    margin-left: 5vw;
+    margin-bottom: 10vh;
+}
+.infomationProduct{
+    border: #754f314c 1px solid;
+    padding: 10px;
+    border-radius: 5px;
+    width: 20%;
+    margin-right: 10%;
+    margin-left: 2%;
+    text-align: center;
+}

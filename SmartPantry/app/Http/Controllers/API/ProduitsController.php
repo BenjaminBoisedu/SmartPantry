@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Produit;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -24,30 +25,36 @@ class ProduitsController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'Name' => 'required | unique:produits',
-            'quantity' => 'required | integer',
-            'price' => 'required | float',
-            "addedDate" => 'required | date',
-            'expirationDate' => 'required | date',
-            'unitWeight' => 'required | float',
-            'thumbnail' => 'required',
-        ]);
+        try {
+            $validated = $request->validate([
+                'Name' => 'required|unique:produits',
+                'quantity' => 'required|numeric',
+                'unit' => 'required|string',
+                'email' => 'required',
+                'id_produit_api' => 'string'
+            ]);
 
-        $produits = Produit::create([
-            'Name' => $request->input('Name'),
-            'quantity' => $request->input('quantity'),
-            'price' => $request->input('price'),
-            'addedDate' => $request->input('addedDate'),
-            'expirationDate' => $request->input('expirationDate'),
-            'unitWeight' => $request->input('unitWeight'),
-            'thumbnail' => $request->input('thumbnail'),
-        ]);
+        $user = User::where('email', $request->input('email'))->first();
+        
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    
+            $produits = Produit::create([
+                'Name' => $request->input('Name'),
+                'quantity' => $request->input('quantity'),
+                'Unit' => $request->input('unit'),
+                'id_produit_api' => $request->input('id_produit_api'),
+            ]);
 
-        $thumbnail = $request->file('thumbnail');
-        $request->file('thumbnail')->move('public', $thumbnail);
-
-        return response()->json($produits, 201);
+            info('Product created:', $produits->toArray());
+            
+            $produits->users()->attach($user);
+            return response()->json($produits, 200);
+    
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
+        }
     }
 
     public function update(Request $request, Produit $produits)
@@ -67,14 +74,41 @@ class ProduitsController extends Controller
         return response()->json($produits, 200);
     }
 
-    public function destroy(Produit $produits)
+    public function destroy(Produit $produit)
     {
-        $produits->delete();
-        return response()->json(null, 204);
+        if (!$produit) {
+            return response()->json(['error' => 'Produit not found'], 404);
+        }
+    
+        try {
+            $produit->users()->detach();
+            $produit->delete();
+            return response()->json(null, 204);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete produit', 'message' => $e->getMessage()], 500);
+        }
     }
 
     public function search($name)
     {
         return response()->json(Produit::where('Name', 'like', '%' . $name . '%')->get(), 200);
     }
+
+    public function getProductsByEmail(Request $request)
+{
+    try {
+        
+        $user = User::where('email', $request->input('email'))->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        $products = $user->produits;
+
+        return response()->json($products, 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
+    }
+}
 }

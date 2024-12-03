@@ -22,6 +22,7 @@ export default function FormLogin() {
         password,
       });
       if (response.data) {
+        localStorage.setItem("Name", response.data.user.Name);
         localStorage.setItem('access_token', response.data.access_token);
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);

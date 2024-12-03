@@ -46,10 +46,9 @@ class User extends Authenticatable
             'Email_verified_at' => 'datetime',
         ];
     }
-
     public function produits(): BelongsToMany
     {
         return $this->belongsToMany(Produit::class, 'produit_user', 'user_id', 'produit_id')
-            ->withPivot('Date_Ajout', 'Date_Expiration');
+            ->withPivot('Date_Ajout', 'Date_Expiration');  // Inclure les colonnes pivot si nécessaire
     }
 }

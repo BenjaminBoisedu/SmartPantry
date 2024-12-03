@@ -1,0 +1,52 @@
+#PageProposition{
+    width: 90vw;
+    margin-left: 5vw;
+    color: #754F31;
+}
+#containeurRecette{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+#inputRechercheRecettes{
+    width: 100%;
+    height: 5vh;
+    border: #754F31 2px solid;
+    border-radius: 5px;
+    padding-left: 1%;
+}
+.recette{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: 2%;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    color: #754F31;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
+                0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.recette img{
+    width: 100%;
+    object-fit: contain;
+}
+
+
+.recette .info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 5%;
+    padding-left: 2%;
+    font-size: 0.95rem;
+}
+.recette p{
+    margin: 0;
+}
+.recette:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
