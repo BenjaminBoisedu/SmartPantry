@@ -12,6 +12,8 @@ Route::get('categories/{categorie}/produits', [CategoriesController::class, 'Get
 Route::apiResource('produits', ProduitsController::class);
 Route::post('/user/products-by-email', [ProduitsController::class, 'getProductsByEmail']);
 Route::delete('/produits/{produit}', [ProduitsController::class, 'destroy']);
+Route::post('/produits/takeRecipe', [ProduitsController::class, 'takeRecipe']);
+
 
 // Login route
 Route::post('login', [AuthController::class, 'login']);

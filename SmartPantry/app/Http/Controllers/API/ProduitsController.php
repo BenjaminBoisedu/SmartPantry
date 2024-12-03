@@ -142,6 +142,57 @@ public function updateStock(Request $request, Produit $produit)
     return response()->json(['message' => 'Produit mis à jour avec succès', 'produit' => $produit]);
 }
 
+public function takeRecipe(Request $request)
+{
+    $validatedData = $request->validate([
+        'ingredients' => 'required|array',
+        'ingredients.*.id' => 'required|string',
+        'ingredients.*.stockChange' => 'required|numeric',
+    ]);
+
+    $erreurs = [];
+    $success = [];
+
+    foreach ($validatedData['ingredients'] as $ingredient) {
+        $produit = Produit::where('id_produit_api', $ingredient['id'])->first();
+
+        if (!$produit) {
+            $erreurs[] = "Produit introuvable pour id_produit_api : {$ingredient['id']}";
+            continue;
+        }
+
+        $nouveauStock = $produit->quantity + $ingredient['stockChange'];
+
+        if ($nouveauStock < 0) {
+            $erreurs[] = "Stock insuffisant pour le produit : {$produit->name}";
+            continue;
+        }
+
+        try {
+            $produit->update(['quantity' => $nouveauStock]);
+            $success[] = "Stock mis à jour pour le produit : {$produit->name}";
+        } catch (\Exception $e) {
+            $erreurs[] = "Erreur lors de la mise à jour pour le produit : {$produit->name}, Erreur : {$e->getMessage()}";
+        }
+    }
+
+    return response()->json([
+        'success' => $success,
+        'errors' => $erreurs,
+    ], 200);
+}
+
+
+
+
+
+  
+
+
+
+
+
+
 
 }
 

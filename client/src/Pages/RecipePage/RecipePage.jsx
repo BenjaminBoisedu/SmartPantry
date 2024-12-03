@@ -36,26 +36,51 @@ export default function RecipePage() {
   }
 
   const takeRecipe = async () => {
-    try {
-      // Parcourez chaque ingrédient et envoyez une requête pour mettre à jour le stock
-      for (const ingredient of recipe.extendedIngredients) {
-        const payload = {
-          stock: -ingredient.amount, // Décrémente le stock par la quantité requise
-        };
-  
-        // Faites une requête PUT ou PATCH pour mettre à jour le stock du produit
-        await axios.patch(
-          `http://localhost:8000/api/produits/${ingredient.id}`,
-          payload
-        );
+  try {
+    const missingIngredients = [];
+
+    for (const ingredient of recipe.extendedIngredients) {
+      console.log("ID de l'ingrédient :", ingredient.id); // Debug
+      console.log("Quantité nécessaire :", ingredient.amount); // Debug
+
+      // Envoi au backend pour soustraire `ingredient.amount` de la quantité en stock
+      const response = await fetch(`http://localhost:8000/api/produits/takeRecipe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: ingredient.id, // `id_produit_api` dans la base de données
+          stockChange: -ingredient.amount, // Réduire le stock par la quantité nécessaire
+        }),
+      });
+
+      // Vérifier la réponse du backend
+      if (!response.ok) {
+        const result = await response.json();
+        if (result.message === "Produit introuvable" || result.message === "Stock insuffisant") {
+          missingIngredients.push(ingredient.name);
+        }
       }
-  
-      alert("Les ingrédients ont été retirés avec succès !");
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour du stock :", error.response?.data || error.message);
-      alert("Une erreur s'est produite lors de la mise à jour des ingrédients.");
     }
-  };
+
+    if (missingIngredients.length > 0) {
+      alert(
+        `Vous n'avez pas assez des ingrédients suivants pour cette recette: ${missingIngredients.join(
+          ", "
+        )}`
+      );
+    } else {
+      alert("Recette prise avec succès!");
+    }
+  } catch (error) {
+    console.error("Erreur lors de la prise de la recette:", error);
+  }
+};
+
+  
+  
+  
   
 
   return (
