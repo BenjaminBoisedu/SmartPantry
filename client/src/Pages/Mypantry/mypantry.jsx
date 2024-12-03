@@ -27,6 +27,7 @@ export default function MyPantry() {
   useEffect(() => {
     setMyPantry([]);
     fetchUserIngredients();
+    console.log(MyPantry);
   }, []);
 
   const addIngredient = async (item) => {
@@ -56,6 +57,7 @@ export default function MyPantry() {
         setMyPantry((prevPantry) => [...prevPantry, response.data]);
         console.log("Ingredient added to pantry:", response.data);
         removePendingItem(item);
+        fetchUserIngredients();
       } else {
         console.error("Error adding ingredient to pantry.");
       }
@@ -64,6 +66,43 @@ export default function MyPantry() {
         "Error adding ingredient:",
         error.response?.data || error.message
       );
+    }
+  };
+
+  const toggleModifyMode = (index, isEditing = true) => {
+    setMyPantry((prevPantry) =>
+      prevPantry.map((item, i) =>
+        i === index ? { ...item, isEditing } : item
+      )
+    );
+  };
+
+  const handleQuantityChange = (index, newQuantity) => {
+    setMyPantry((prevPantry) =>
+      prevPantry.map((item, i) =>
+        i === index ? { ...item, newQuantity } : item
+      )
+    );
+  };
+
+  const updateQuantity = async (item, index) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/produits/${item.id}`,
+        { quantity: item.newQuantity }
+      );
+  
+      if (response.status === 200) {
+        setMyPantry((prevPantry) =>
+          prevPantry.map((i, idx) =>
+            idx === index
+              ? { ...i, Quantity: item.newQuantity, isEditing: false, newQuantity: undefined }
+              : i
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error updating quantity:", error.response?.data || error.message);
     }
   };
 
@@ -127,7 +166,7 @@ export default function MyPantry() {
     if (!searchQuery.trim()) return;
     try {
       const response = await axios.get(
-        `https://api.spoonacular.com/food/ingredients/search?query=${searchQuery}&apiKey=3163dac8e6e84c68be7f82233d5c77ca`
+        `https://api.spoonacular.com/food/ingredients/search?query=${searchQuery}&apiKey=9fd3c6721b55485f97038bcfe016593c`
       );
       const data = response.data.results || [];
       setSearchResults(data);
@@ -153,8 +192,28 @@ export default function MyPantry() {
                   onError={(e) => (e.target.src = "Img/Pantry/produit_introuvable.png")} // Image par défaut en cas d'erreur
                 />
                 <p>
-                  {item.quantity} {item.unit} of {item.Name.replace(" ", "-")}
+                  {item.Quantity} {item.Unit} of {item.Name.replace(" ", "-")}
                 </p>
+                {!item.isEditing && (
+                  <button className="buttonModify" onClick={() => toggleModifyMode(index)}>
+                    Modify
+                  </button>
+                )}
+                {item.isEditing && (
+                  <div className="editQuantity">
+                    <input
+                      className="newqProduct"
+                      type="number"
+                      min="1"
+                      value={item.newQuantity || item.Quantity}
+                      onChange={(e) => handleQuantityChange(index, e.target.value)}
+                    />
+                    <div className="savecancel">
+                    <button className="buttonSave" onClick={() => updateQuantity(item, index)}>Save</button>
+                    <button className="buttonCancel" onClick={() => toggleModifyMode(index, false)}>Cancel</button>
+                    </div>
+                  </div>
+                )}
                 <button className="buttonRemove" onClick={() => removeIngredient(item)}>Remove</button>
               </div>
             ))}

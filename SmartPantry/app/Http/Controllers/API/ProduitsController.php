@@ -57,22 +57,38 @@ class ProduitsController extends Controller
         }
     }
 
-    public function update(Request $request, Produit $produits)
+    public function update(Request $request, $id)
     {
+        $produits = Produit::find($id);
+        if (!$produits) {
+            return response()->json([
+                'message' => 'Produit introuvable.',
+            ], 404);
+        }
         $validated = $request->validate([
             'quantity' => 'required | integer',
-            "addedDate" => 'required | date',
-            'expirationDate' => 'required | date',
         ]);
 
         $produits->update([
             'quantity' => $request->input('quantity'),
-            'addedDate' => $request->input('addedDate'),
-            'expirationDate' => $request->input('expirationDate'),
         ]);
 
-        return response()->json($produits, 200);
+        try {
+            $produits->update([
+                'Quantity' => $validated['quantity'],
+            ]);
+    
+            return response()->json([
+                'message' => 'Produit mis à jour avec succès.',
+                'produit' => $produits,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erreur lors de la mise à jour du produit.',
+                'error' => $e->getMessage(),
+            ], 500);
     }
+}
 
     public function destroy(Produit $produit)
     {
