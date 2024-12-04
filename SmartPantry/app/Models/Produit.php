@@ -19,6 +19,7 @@ class Produit extends Model
         'quantity',
         'Unit',
         'id_produit_api',
+        'imageProduit'
     ];
 
     public function category()

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('Name');
             $table->double('Quantity');
             $table->string('Unit');
+            $table->string('imageProduit')->nullable(); // Nouvelle colonne pour les images
             $table->string('id_produit_api')->nullable(); 
             $table->timestamps();
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produit');
+        Schema::dropIfExists('produits'); // Correction du nom de la table
     }
 };

@@ -44,6 +44,7 @@ export default function MyPantry() {
         unit: item.unit,
         email: email,
         id_produit_api: String(item.id),
+        imageProduit: String(item.image)
       };
 
       console.log(ingredientData);
@@ -142,6 +143,7 @@ export default function MyPantry() {
             quantity: 1,
             unit: data.possibleUnits[0], 
             id_produit_api: item.id,
+            imageProduit: item.image
           },
         ]);
       } catch (error) {
@@ -187,12 +189,12 @@ export default function MyPantry() {
             {MyPantry.map((item, index) => ( // Placez correctement la fonction map ici
               <div className="item" key={index}>
                 <img
-                  src={`https://spoonacular.com/cdn/ingredients_250x250/${item.Name?.toString().replace(/ /g, '-')}.jpg`}
-                  alt={item.Name.replace(" ", "-")}
+                  src={`https://spoonacular.com/cdn/ingredients_250x250/${item.imageProduit}`}
+                  alt={item.imageProduit}
                   onError={(e) => (e.target.src = "Img/Pantry/produit_introuvable.png")} // Image par défaut en cas d'erreur
                 />
                 <p>
-                  {item.Quantity} {item.Unit} of {item.Name.replace(" ", "-")}
+                  {item.Quantity} {item.Unit} of {item.Name}
                 </p>
                 {!item.isEditing && (
                   <button className="buttonModify" onClick={() => toggleModifyMode(index)}>

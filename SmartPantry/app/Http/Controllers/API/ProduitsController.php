@@ -31,7 +31,8 @@ class ProduitsController extends Controller
                 'quantity' => 'required|numeric',
                 'unit' => 'required|string',
                 'email' => 'required',
-                'id_produit_api' => 'string'
+                'id_produit_api' => 'string',
+                'imageProduit'=>'string'
             ]);
 
         $user = User::where('email', $request->input('email'))->first();
@@ -45,6 +46,7 @@ class ProduitsController extends Controller
                 'quantity' => $request->input('quantity'),
                 'Unit' => $request->input('unit'),
                 'id_produit_api' => $request->input('id_produit_api'),
+                'imageProduit' => $request->input('imageProduit')
             ]);
 
             info('Product created:', $produits->toArray());
