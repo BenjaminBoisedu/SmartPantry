@@ -127,73 +127,37 @@ class ProduitsController extends Controller
         return response()->json(['error' => 'Something went wrong', 'message' => $e->getMessage()], 500);
     }
 }
-
-public function updateStock(Request $request, Produit $produit)
-{
-    $validatedData = $request->validate([
-        'stock' => 'required|integer', // Validez seulement le stock
-        // Supprimez les règles pour addedDate et expirationDate si elles ne sont pas nécessaires ici
-    ]);
-
-    // Mise à jour du produit
-    $produit->stock += $validatedData['stock'];
-    $produit->save();
-
-    return response()->json(['message' => 'Produit mis à jour avec succès', 'produit' => $produit]);
-}
-
 public function takeRecipe(Request $request)
 {
     $validatedData = $request->validate([
-        'ingredients' => 'required|array',
-        'ingredients.*.id' => 'required|string',
-        'ingredients.*.stockChange' => 'required|numeric',
+        'email' => 'required|email',
+        'id' => 'required',
+        'stockChange' => 'required|integer',
     ]);
 
-    $erreurs = [];
-    $success = [];
+    $user = User::where('email', $validatedData['email'])->first();
 
-    foreach ($validatedData['ingredients'] as $ingredient) {
-        $produit = Produit::where('id_produit_api', $ingredient['id'])->first();
-
-        if (!$produit) {
-            $erreurs[] = "Produit introuvable pour id_produit_api : {$ingredient['id']}";
-            continue;
-        }
-
-        $nouveauStock = $produit->quantity + $ingredient['stockChange'];
-
-        if ($nouveauStock < 0) {
-            $erreurs[] = "Stock insuffisant pour le produit : {$produit->name}";
-            continue;
-        }
-
-        try {
-            $produit->update(['quantity' => $nouveauStock]);
-            $success[] = "Stock mis à jour pour le produit : {$produit->name}";
-        } catch (\Exception $e) {
-            $erreurs[] = "Erreur lors de la mise à jour pour le produit : {$produit->name}, Erreur : {$e->getMessage()}";
-        }
+    if (!$user) {
+        return response()->json(['error' => 'Utilisateur introuvable avec cet email.'], 404);
     }
 
-    return response()->json([
-        'success' => $success,
-        'errors' => $erreurs,
-    ], 200);
+    $produit = Produit::where('id_produit_api', $validatedData['id'])->first();
+
+    if (!$produit) {
+        return response()->json(['error' => "Produit introuvable pour id_produit_api : {$validatedData['id']}"], 404);
+    }
+
+    $nouveauStock = $produit->Quantity + $validatedData['stockChange'];
+
+    if ($nouveauStock < 0) {
+        return response()->json(['error' => "Stock insuffisant pour le produit : {$produit->Name}. Stock actuel : {$produit->Quantity}"], 400);
+    }
+
+    try {
+        $produit->update(['quantity' => $nouveauStock]);
+        return response()->json(['success' => "Stock mis à jour pour le produit : {$produit->Name}. Nouveau stock : {$nouveauStock}"], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => "Erreur lors de la mise à jour du produit : {$produit->Name}. Détails : {$e->getMessage()}"], 500);
+    }
 }
-
-
-
-
-
-  
-
-
-
-
-
-
-
 }
-
-

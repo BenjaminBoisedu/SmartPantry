@@ -11,7 +11,7 @@ export default function RecipePage() {
   useEffect(() => {
     const fetchRecipeDetails = async () => {
       try {
-        const apiKey = "5dc8d2c0a9fd46a18c4d2e37d838af35";
+        const apiKey = "9fd3c6721b55485f97038bcfe016593c";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`
         );
@@ -52,6 +52,7 @@ export default function RecipePage() {
         body: JSON.stringify({
           id: ingredient.id, // `id_produit_api` dans la base de données
           stockChange: -ingredient.amount, // Réduire le stock par la quantité nécessaire
+          email: localStorage.getItem("email")
         }),
       });
 
