@@ -129,7 +129,7 @@ export default function MyPantry() {
     if (!pendingItems.some((pendingItem) => pendingItem.name === item.name)) {
       try {
         const response = await axios.get(
-          `https://api.spoonacular.com/food/ingredients/${item.id}/information?amount=1&apiKey=9fd3c6721b55485f97038bcfe016593c`
+          `https://api.spoonacular.com/food/ingredients/${item.id}/information?amount=1&apiKey=c364ddb963a5427cbcdaa07617dfee49`
         );
         const data = response.data;
         console.log("Item id : "+item.id)
@@ -168,7 +168,7 @@ export default function MyPantry() {
     if (!searchQuery.trim()) return;
     try {
       const response = await axios.get(
-        `https://api.spoonacular.com/food/ingredients/search?query=${searchQuery}&apiKey=9fd3c6721b55485f97038bcfe016593c`
+        `https://api.spoonacular.com/food/ingredients/search?query=${searchQuery}&apiKey=c364ddb963a5427cbcdaa07617dfee49`
       );
       const data = response.data.results || [];
       setSearchResults(data);

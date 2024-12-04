@@ -10,7 +10,7 @@ export default function RecipeProposition() {
 
   const FilterRecettes = async () => {
     try {
-      const apiKey = "9fd3c6721b55485f97038bcfe016593c";
+      const apiKey = "c364ddb963a5427cbcdaa07617dfee49";
       const régime = document.getElementById("Regime").value;
       const temps = document.getElementById("Temps").value;
       const type = document.getElementById("Type").value;
@@ -112,7 +112,7 @@ export default function RecipeProposition() {
 
     setLoading(true);
     try {
-      const apiKey = "9fd3c6721b55485f97038bcfe016593c";
+      const apiKey = "c364ddb963a5427cbcdaa07617dfee49";
       const url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchQuery}&apiKey=${apiKey}&number=100&ignorePantry=true`;
 
       const response = await axios.get(url);
@@ -130,7 +130,7 @@ export default function RecipeProposition() {
       if (ingredientIds.length === 0) return;
       try {
         console.log("ok");
-        const apiKey = "9fd3c6721b55485f97038bcfe016593c";
+        const apiKey = "c364ddb963a5427cbcdaa07617dfee49";
         const response = await fetch(
           `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientIds.join(
             ","

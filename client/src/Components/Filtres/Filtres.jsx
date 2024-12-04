@@ -4,7 +4,7 @@ import "./Filtres.css";
 import { useState, useEffect } from "react";
 
 export default function Filtres() {
-  const API_KEY = "c9c6579ba7f24849bee095c326cfe70d";
+  const API_KEY = "c364ddb963a5427cbcdaa07617dfee49";
 
   const [FilteredRecettes, setFilteredRecettes] = useState([]);
 
