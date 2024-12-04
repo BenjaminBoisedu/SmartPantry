@@ -150,7 +150,7 @@ export default function RecipeProposition() {
 
   return (
     <div id="PageProposition">
-      <h1>Proposition de recettes</h1>
+      <h1>Recipe Suggestions</h1>
       <div id="searchBarRecipe">
         <input
           type="text"
@@ -158,14 +158,14 @@ export default function RecipeProposition() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button onClick={handleSearch}>Rechercher</button>
+        <button onClick={handleSearch}>Search</button>
       </div>
       <div className="ContainerFiltres">
         <form action="" method="" id="Filtre" onSubmit={HandleFilterSubmit}>
           <div className="Filtres">
             <div className="Filtre">
               <label htmlFor="Regime">
-                Régime:
+                Diet :
                 <select name="Regime" id="Regime">
                   {Régime.map((régime) => (
                     <option value={régime} key={régime}>
@@ -189,7 +189,7 @@ export default function RecipeProposition() {
             </div>
             <div className="Filtre">
               <label htmlFor="Temps">
-                Temps:
+                Time :
                 <select name="Temps" id="Temps">
                   {Temps.map((temps) => (
                     <option value={temps} key={temps}>
@@ -201,13 +201,13 @@ export default function RecipeProposition() {
             </div>
           </div>
           <button type="submit" id="buttonFiltre">
-            Filtrer
+            Filter
           </button>
         </form>
       </div>
       <div id="containeurRecette">
         {loading ? (
-          <p className="infoPasDeRecette">Chargement des recettes...</p>
+          <p className="infoPasDeRecette">Loading recipes...</p>
         ) : recipes.length > 0 ? (
           recipes.map((recipe) => (
             <a
@@ -226,7 +226,7 @@ export default function RecipeProposition() {
             </a>
           ))
         ) : (
-          <p className="infoPasDeRecette">Aucune recette trouvée.</p>
+          <p className="infoPasDeRecette">No recipes found.</p>
         )}
       </div>
     </div>

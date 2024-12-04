@@ -28,11 +28,11 @@ export default function RecipePage() {
   }, [id]);
 
   if (loading) {
-    return <p>Chargement...</p>;
+    return <p>Loading...</p>;
   }
 
   if (!recipe) {
-    return <p>Aucune recette trouvée.</p>;
+    return <p>No recipe found.</p>;
   }
 
   const takeRecipe = async () => {
@@ -67,12 +67,12 @@ export default function RecipePage() {
 
     if (missingIngredients.length > 0) {
       alert(
-        `Vous n'avez pas assez des ingrédients suivants pour cette recette: ${missingIngredients.join(
+        `You don't have enough of the following ingredients for this recipe: {missingIngredients}: ${missingIngredients.join(
           ", "
         )}`
       );
     } else {
-      alert("Recette prise avec succès!");
+      alert("Recipe successfully taken!");
     }
   } catch (error) {
     console.error("Erreur lors de la prise de la recette:", error);
@@ -91,13 +91,13 @@ export default function RecipePage() {
       <button className="calories-button">{recipe.nutrition?.calories || "N/A"} Calories</button>
       
       <div className="icons">
-        <div className="infoRecipe"><span>🍴</span>{recipe.servings} portions</div>
+        <div className="infoRecipe"><span>🍴</span>{recipe.servings} servings</div>
         <div className="infoRecipe"><span>⏱ </span>{recipe.readyInMinutes} minutes</div>
-        <div className="infoRecipe"><span>{recipe.vegetarian ? "🌱" : "🍖"}</span>{recipe.vegetarian ? "Végétarien" : "Non Végétarien"}</div>
+        <div className="infoRecipe"><span>{recipe.vegetarian ? "🌱" : "🍖"}</span>{recipe.vegetarian ? "Vegetarian" : "No Vegetarian"}</div>
       </div>
     <div id="barSeparation"></div>
-      <h2>Les ingrédients</h2>
-      <p id="nombrePersonne">Nombre de personnes : {recipe.servings}</p>
+      <h2>Ingredients</h2>
+      <p id="nombrePersonne">Number of servings : {recipe.servings}</p>
       <div className="ingredients-list">
         {recipe.extendedIngredients.map((ingredient) => (
           <div key={ingredient.id} className="ingredient-card">
@@ -111,7 +111,8 @@ export default function RecipePage() {
         ))}
       </div>
 
-      <button className="take-recipe-button" onClick={takeRecipe}>Prendre cette recette</button>
+      <button className="take-recipe-button" onClick={takeRecipe}>Take this recipe</button>
+      <a className="take-recipe-button" href={recipe.sourceUrl}>View the recette</a>
     </div>
   );
 }
